@@ -17,7 +17,7 @@
             <el-icon :size="20" class="reset_" @click="reset(true)">
               <Refresh />
             </el-icon>
-            <el-icon :size="20">
+            <el-icon :size="20" @click="onC">
               <Close />
             </el-icon>
           </div>
