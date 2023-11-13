@@ -1,6 +1,5 @@
-
 //菜单数据与按钮数据的ts类型
-import {ResponseData} from "@/api/base/type";
+import { ResponseData } from '@/api/base/type'
 
 export interface Api {
   id?: number

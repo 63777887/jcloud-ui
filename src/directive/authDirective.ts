@@ -10,7 +10,11 @@ export const authDirective = (app: any) => {
     mounted(el: any, options: any) {
       //自定义指令右侧的数值:如果在用户信息buttons数组当中没有
       //从DOM树上干掉
-      if (userStore.buttons && !userStore.buttons.includes(options.value) && el.parentNode) {
+      if (
+        userStore.buttons &&
+        !userStore.buttons.includes(options.value) &&
+        el.parentNode
+      ) {
         el.parentNode.removeChild(el)
       }
     },

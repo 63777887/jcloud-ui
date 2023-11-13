@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import {TokenData} from "@/api/user/type";
+import { TokenData } from '@/api/user/type'
 export interface UserState {
   token: string | null
   avatar: string
@@ -17,25 +17,24 @@ export interface LayoutSetting {
 // 布局配置
 export interface ThemeConfigState {
   config: {
-    themeDrawer: boolean;
-    primary: string;
-    isDark: boolean;
-    isGrayscale: boolean;
-    isInvert: boolean;
-    menuBackground: string;
-    menuColor: string;
-    menuActiveColor: string;
-    topBarBackground: string;
-    topBarColor: string;
-    allowMenuFold: boolean;
-    topBarIcon: boolean;
-    isCollapse: boolean;
-    asideLogo: boolean;
-    allowTabs: boolean;
-    allowTabsIcon: boolean;
-    allowWartermark: boolean;
-    openFooter: boolean;
-    defaultWartermarkText: string;
-
-  };
+    themeDrawer: boolean
+    primary: string
+    isDark: boolean
+    isGrayscale: boolean
+    isInvert: boolean
+    menuBackground: string
+    menuColor: string
+    menuActiveColor: string
+    topBarBackground: string
+    topBarColor: string
+    allowMenuFold: boolean
+    topBarIcon: boolean
+    isCollapse: boolean
+    asideLogo: boolean
+    allowTabs: boolean
+    allowTabsIcon: boolean
+    allowWartermark: boolean
+    openFooter: boolean
+    defaultWartermarkText: string
+  }
 }

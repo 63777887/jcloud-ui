@@ -1,21 +1,20 @@
 //账号信息的ts类型
-import {RoleData} from "@/api/acl/role/type";
-import {ResponseData} from "@/api/base/type";
-
+import { RoleData } from '@/api/acl/role/type'
+import { ResponseData } from '@/api/base/type'
 
 //代表一个账号信息的ts类型
 export interface User {
   id?: number
   updateTime?: string
   username?: string
-  nickName: string,
+  nickName: string
   phone?: string
-  email: string,
-  orgId: number,
-  status: number,
-  enable: boolean,
-  password: string,
-  sysRoles: RoleData[],
+  email: string
+  orgId: number
+  status: number
+  enable: boolean
+  password: string
+  sysRoles: RoleData[]
 }
 
 //代表一个账号信息的ts类型
@@ -23,14 +22,14 @@ export interface UserReq {
   id?: number
   updateTime?: string
   username?: string
-  nickName: string,
+  nickName: string
   phone?: string
-  email: string,
-  orgId: number,
-  status: number,
-  enable: boolean,
-  password: string,
-  roles: number[],
+  email: string
+  orgId: number
+  status: number
+  enable: boolean
+  password: string
+  roles: number[]
 }
 //数组包含全部的用户信息
 type Records = User[]
@@ -55,4 +54,3 @@ export interface UserResponseData extends ResponseData {
 export interface GetUserInfoResponseData extends ResponseData {
   data: User
 }
-

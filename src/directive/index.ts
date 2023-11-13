@@ -1,6 +1,5 @@
-import type { App } from 'vue';
-import {authDirective} from "@/directive/authDirective";
-
+import type { App } from 'vue'
+import { authDirective } from '@/directive/authDirective'
 
 /**
  * 导出指令方法：v-xxx
@@ -8,6 +7,6 @@ import {authDirective} from "@/directive/authDirective";
  * @methods wavesDirective 按钮波浪指令，用法：v-waves
  */
 export function directive(app: App) {
-	// 用户权限指令
-	authDirective(app);
+  // 用户权限指令
+  authDirective(app)
 }

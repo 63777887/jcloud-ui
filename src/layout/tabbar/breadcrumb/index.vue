@@ -1,5 +1,10 @@
 <template>
-  <el-icon class="topBar-icon" size="22" @click="changeIcon" v-if="config.allowMenuFold">
+  <el-icon
+    class="topBar-icon"
+    size="22"
+    @click="changeIcon"
+    v-if="config.allowMenuFold"
+  >
     <component :is="config.isCollapse ? 'Expand' : 'Fold'"></component>
   </el-icon>
   <el-breadcrumb class="topBar-content" separator-icon="ArrowRight">
@@ -20,7 +25,7 @@
 <script setup lang="ts">
 // 这里可以导入其他文件（比如：组件，工具 js，第三方插件 js，json 文件，图片文件等等）
 // 例如：import  《组件名称》  from '《组件路径》 ';
-import {useRoute} from 'vue-router'
+import { useRoute } from 'vue-router'
 import {
   computed,
   onActivated,
@@ -35,10 +40,10 @@ import {
   onUnmounted,
   onUpdated,
 } from 'vue'
-import useThemeConfig from "@/store/modules/themeConfig";
-import {SET_THEME_CONFIG} from "@/utils/themeConfigUtil";
+import useThemeConfig from '@/store/modules/themeConfig'
+import { SET_THEME_CONFIG } from '@/utils/themeConfigUtil'
 
-const config = useThemeConfig().config;
+const config = useThemeConfig().config
 const $route = useRoute()
 
 const changeIcon = () => {

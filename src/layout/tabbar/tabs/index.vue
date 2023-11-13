@@ -1,30 +1,29 @@
 <template>
   <el-tabs
-      v-model="editableTabsValue"
-      type="border-card"
-      class="tabs"
-      @tab-remove="removeTab"
-      @tab-change="changeTab"
+    v-model="editableTabsValue"
+    type="border-card"
+    class="tabs"
+    @tab-remove="removeTab"
+    @tab-change="changeTab"
   >
     <el-tab-pane
-        key="home"
-        label="首页"
-        name="/home"
-        :closable="false"
-    >
-    </el-tab-pane>
+      key="home"
+      label="首页"
+      name="/home"
+      :closable="false"
+    ></el-tab-pane>
     <el-tab-pane
-        v-for="item in editableTabs"
-        :key="item.path"
-        :label="item.title"
-        :name="item.path"
-        :closable="item.path!=='home'"
+      v-for="item in editableTabs"
+      :key="item.path"
+      :label="item.title"
+      :name="item.path"
+      :closable="item.path !== 'home'"
     >
       <template #label>
         <span class="custom-tabs-label">
           <el-icon v-if="config.allowTabsIcon">
-                      <component :is="item.icon"></component>
-                    </el-icon>
+            <component :is="item.icon"></component>
+          </el-icon>
           <span>{{ item.title }}</span>
         </span>
       </template>
@@ -48,18 +47,17 @@ import {
   onRenderTriggered,
   onUnmounted,
   onUpdated,
-  ref
+  ref,
 } from 'vue'
-import {GET_TAGS_VIEW_LIST, REMOVE_TAGS_VIEW_ITEM} from "@/utils/tabs";
-import {TabPaneName} from "element-plus";
-import router from "@/router";
-import layoutSettingStore from "@/store/modules/setting";
-import useThemeConfig from "@/store/modules/themeConfig";
-
+import { GET_TAGS_VIEW_LIST, REMOVE_TAGS_VIEW_ITEM } from '@/utils/tabs'
+import { TabPaneName } from 'element-plus'
+import router from '@/router'
+import layoutSettingStore from '@/store/modules/setting'
+import useThemeConfig from '@/store/modules/themeConfig'
 
 let editableTabs = ref()
-const settingStore = layoutSettingStore();
-const config = useThemeConfig().config;
+const settingStore = layoutSettingStore()
+const config = useThemeConfig().config
 
 const removeTab = (targetName: string) => {
   const tabs = editableTabs.value
@@ -85,11 +83,10 @@ const removeTab = (targetName: string) => {
 const storageTagsChange = (event) => {
   if (event.type === 'storageTagsChange') {
     // 处理变化的操作
-    const tagsViewList = GET_TAGS_VIEW_LIST();
+    const tagsViewList = GET_TAGS_VIEW_LIST()
     editableTabs.value = JSON.parse(tagsViewList)
   }
 }
-
 
 const changeTab = (name: TabPaneName) => {
   router.push(name)
@@ -99,42 +96,30 @@ let editableTabsValue = computed({
   get() {
     return settingStore.activePath
   },
-  set(newValue) {
-  }
+  set(newValue) {},
 })
 
-onBeforeMount(() => {
-})// 生命周期 - 挂载之前
+onBeforeMount(() => {}) // 生命周期 - 挂载之前
 onMounted(() => {
-  const tagsViewList = GET_TAGS_VIEW_LIST();
+  const tagsViewList = GET_TAGS_VIEW_LIST()
   editableTabs.value = JSON.parse(tagsViewList)
-  window.addEventListener('storageTagsChange', storageTagsChange);
-})// 生命周期 - 挂载完成（可以访问 DOM 元素）
-onBeforeUpdate(() => {
-})// 生命周期 - 更新之前
-onUpdated(() => {
-})// 生命周期 - 更新之后
+  window.addEventListener('storageTagsChange', storageTagsChange)
+}) // 生命周期 - 挂载完成（可以访问 DOM 元素）
+onBeforeUpdate(() => {}) // 生命周期 - 更新之前
+onUpdated(() => {}) // 生命周期 - 更新之后
 onBeforeUnmount(() => {
-  window.removeEventListener('storageTagsChange', storageTagsChange);
-})// 生命周期 - 销毁之前
-onUnmounted(() => {
-})// 生命周期 - 销毁完成
-onErrorCaptured((err) => {
-})// 当事件处理程序或生命周期钩子抛出错误时
-onRenderTracked((e) => {
-})// 渲染的时候可以追踪到
-onRenderTriggered((e) => {
-})// 重新渲染的时候触发
+  window.removeEventListener('storageTagsChange', storageTagsChange)
+}) // 生命周期 - 销毁之前
+onUnmounted(() => {}) // 生命周期 - 销毁完成
+onErrorCaptured((err) => {}) // 当事件处理程序或生命周期钩子抛出错误时
+onRenderTracked((e) => {}) // 渲染的时候可以追踪到
+onRenderTriggered((e) => {}) // 重新渲染的时候触发
 // 如果页面有 keep-alive 缓存功能,这个两个函数会触发
-onActivated(() => {
-})// 进入的时候触发
-onDeactivated(() => {
-})// 离开的时候触发
-
+onActivated(() => {}) // 进入的时候触发
+onDeactivated(() => {}) // 离开的时候触发
 </script>
 
 <style scoped lang="scss">
-
 .el-tabs {
   --el-tabs-header-height: 35px;
   border: none;
@@ -153,5 +138,4 @@ onDeactivated(() => {
     margin-left: 3px;
   }
 }
-
 </style>

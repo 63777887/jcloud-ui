@@ -2,7 +2,11 @@
   <div>
     <el-card>
       <div class="box">
-        <img :src="store.avatar ? store.avatar : defaultAvatar" alt="" class="avatar" />
+        <img
+          :src="store.avatar ? store.avatar : defaultAvatar"
+          alt=""
+          class="avatar"
+        />
         <div class="bottom">
           <h3 class="title">
             {{ getTimeAdverbial() }}好呀, {{ store.user.username }}
@@ -37,11 +41,11 @@ import {
   onDeactivated,
 } from 'vue'
 import userStore from '@/store/modules/user'
-import layoutSettingStore from "@/store/modules/setting";
-import defaultAvatar from "@/assets/images/defaultAvatar.gif"
+import layoutSettingStore from '@/store/modules/setting'
+import defaultAvatar from '@/assets/images/defaultAvatar.gif'
 
 const store = userStore()
-const settingStore = layoutSettingStore();
+const settingStore = layoutSettingStore()
 
 // setup在beforeCreate之前执行一次，this是undefined。
 onBeforeMount(() => {}) // 生命周期 - 挂载之前

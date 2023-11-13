@@ -7,8 +7,8 @@
         <div class="eye-shadow left"></div>
         <div class="eye-white left">
           <div
-              class="eye-ball"
-              :style="[
+            class="eye-ball"
+            :style="[
               eyeBallY && { top: eyeBallY },
               eyeBallX && { left: eyeBallX },
             ]"
@@ -17,8 +17,8 @@
         <div class="eye-shadow right"></div>
         <div class="eye-white right">
           <div
-              class="eye-ball"
-              :style="[
+            class="eye-ball"
+            :style="[
               eyeBallY && { top: eyeBallY },
               eyeBallX && { left: eyeBallX },
             ]"
@@ -37,24 +37,24 @@
     </div>
 
     <el-form
-        ref="loginFormRef"
-        :model="loginForm"
-        :rules="rules"
-        class="login-box"
-        :class="{ up: inputFocused.up }"
-        @keydown="submitForm"
+      ref="loginFormRef"
+      :model="loginForm"
+      :rules="rules"
+      class="login-box"
+      :class="{ up: inputFocused.up }"
+      @keydown="submitForm"
     >
       <div class="hand left"></div>
       <div class="hand right"></div>
       <h1>用户登录</h1>
       <el-form-item prop="username" class="ipt-box">
         <el-input
-            class="rule-input-edit"
-            v-model="loginForm.username"
-            autocomplete="off"
-            clearable
-            @focus="focusedInput('username')"
-            @blur="blurInput('username')"
+          class="rule-input-edit"
+          v-model="loginForm.username"
+          autocomplete="off"
+          clearable
+          @focus="focusedInput('username')"
+          @blur="blurInput('username')"
         />
         <label :class="{ move: inputFocused.username || loginForm.username }">
           用户名
@@ -62,14 +62,14 @@
       </el-form-item>
       <el-form-item prop="password" class="ipt-box">
         <el-input
-            class="rule-input-edit"
-            v-model="loginForm.password"
-            type="password"
-            autocomplete="off"
-            show-password
-            clearable
-            @focus="focusedInput('password')"
-            @blur="blurInput('password')"
+          class="rule-input-edit"
+          v-model="loginForm.password"
+          type="password"
+          autocomplete="off"
+          show-password
+          clearable
+          @focus="focusedInput('password')"
+          @blur="blurInput('password')"
         />
         <label :class="{ move: inputFocused.password || loginForm.password }">
           密码
@@ -77,9 +77,9 @@
       </el-form-item>
       <el-form-item>
         <el-button
-            :loading="buttonLoading"
-            class="form-button"
-            @click="submitForm"
+          :loading="buttonLoading"
+          class="form-button"
+          @click="submitForm"
         >
           登录
         </el-button>
@@ -87,30 +87,35 @@
     </el-form>
     <!--    滑块验证码-->
     <template>
-      <verify :imgs="codeImgs" :show="isShow" @success="onSuccess" @close="onClose"/>
+      <verify
+        :imgs="codeImgs"
+        :show="isShow"
+        @success="onSuccess"
+        @close="onClose"
+      />
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import {reactive, ref} from 'vue'
+import { reactive, ref } from 'vue'
 // 引入需要的变量
 import MonitorEyeBallFocus from '../../../utils/montor.ts'
-import {ElNotification, FormRules} from 'element-plus'
+import { ElNotification, FormRules } from 'element-plus'
 // 引入仓库
 import userStore from '@/store/modules/user'
-import {LoginFormData} from '@/api/user/type'
-import {useRoute, useRouter} from 'vue-router'
-import {getTimeAdverbial} from '@/utils/time'
-import codeImg001 from "@/assets/images/code_imgs/codeImg001.webp"
-import codeImg002 from "@/assets/images/code_imgs/codeImg002.webp"
-import codeImg003 from "@/assets/images/code_imgs/codeImg003.webp"
-import codeImg004 from "@/assets/images/code_imgs/codeImg004.webp"
+import { LoginFormData } from '@/api/user/type'
+import { useRoute, useRouter } from 'vue-router'
+import { getTimeAdverbial } from '@/utils/time'
+import codeImg001 from '@/assets/images/code_imgs/codeImg001.webp'
+import codeImg002 from '@/assets/images/code_imgs/codeImg002.webp'
+import codeImg003 from '@/assets/images/code_imgs/codeImg003.webp'
+import codeImg004 from '@/assets/images/code_imgs/codeImg004.webp'
 
 const $router = useRouter()
 const $route = useRoute()
 const store = userStore()
-const codeImgs = [codeImg001, codeImg002, codeImg003, codeImg004];
+const codeImgs = [codeImg001, codeImg002, codeImg003, codeImg004]
 // 表单数据
 
 let loginForm = reactive<LoginFormData>({
@@ -123,12 +128,12 @@ let loginFormRef = ref()
 // 表单规则
 const rules = reactive<FormRules<LoginFormData>>({
   username: [
-    {required: true, message: '请输入用户名', trigger: 'blur'},
-    {min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur'},
+    { required: true, message: '请输入用户名', trigger: 'blur' },
+    { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
   ],
   password: [
-    {required: true, message: '请输入密码', trigger: 'blur'},
-    {min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur'},
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
   ],
 })
 
@@ -139,26 +144,26 @@ let inputFocused = reactive({
   up: false,
 })
 // 鼠标移动事件
-const {eyeBallY, eyeBallX} = MonitorEyeBallFocus()
+const { eyeBallY, eyeBallX } = MonitorEyeBallFocus()
 
-const isShow = ref(false);
+const isShow = ref(false)
 
 const onShow = () => {
-  isShow.value = true;
-};
+  isShow.value = true
+}
 
 const onClose = () => {
-  isShow.value = false;
+  isShow.value = false
   buttonLoading.value = false
-};
+}
 
 const onSuccess = async () => {
   try {
     await store.userLogin(loginForm)
-    onClose(); // 验证成功，需要手动关闭模态框
+    onClose() // 验证成功，需要手动关闭模态框
     // 是否重定向
     const redirect: any = $route.query.redirect
-    await $router.push({path: redirect || '/'})
+    await $router.push({ path: redirect || '/' })
     // 登陆成功，提示信息
     ElNotification.success({
       message: '欢迎回来',
@@ -169,8 +174,7 @@ const onSuccess = async () => {
   } finally {
     buttonLoading.value = false
   }
-
-};
+}
 
 // 登陆按钮
 const submitForm = async () => {

@@ -1,7 +1,7 @@
 // 创建用户相关的仓库
-import {defineStore} from 'pinia'
+import { defineStore } from 'pinia'
 // 引入接口
-import {LayoutSetting} from '@/store/modules/types/type'
+import { LayoutSetting } from '@/store/modules/types/type'
 import * as static from '@/console.assert()'
 // 引入路由
 

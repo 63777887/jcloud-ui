@@ -6,11 +6,11 @@
       <!--        滚动组件-->
       <el-scrollbar class="scrollbar">
         <el-menu
-            :default-active="$router.path"
-            :collapse="config.isCollapse"
-            :collapse-transition="false"
-            unique-opened
-            router
+          :default-active="$router.path"
+          :collapse="config.isCollapse"
+          :collapse-transition="false"
+          unique-opened
+          router
         >
           <Menu :menuList="routesListStore.routesList"></Menu>
         </el-menu>
@@ -28,8 +28,10 @@
         <Main></Main>
       </el-main>
       <el-footer v-if="config.openFooter">
-        <p> Copyright © 2023.</p>
-        <a href="https://gitee.com/musi1996/jcloud">https://gitee.com/musi1996/jcloud</a>
+        <p>Copyright © 2023.</p>
+        <a href="https://gitee.com/musi1996/jcloud">
+          https://gitee.com/musi1996/jcloud
+        </a>
       </el-footer>
     </el-container>
   </el-container>
@@ -57,40 +59,29 @@ import {
   onUnmounted,
   onUpdated,
 } from 'vue'
-import {useRoute} from "vue-router";
-import {useRoutesListStore} from "@/store/modules/routesList";
-import useThemeConfig from "@/store/modules/themeConfig";
+import { useRoute } from 'vue-router'
+import { useRoutesListStore } from '@/store/modules/routesList'
+import useThemeConfig from '@/store/modules/themeConfig'
 
 let $router = useRoute()
 let store = userStore()
-const routesListStore = useRoutesListStore();
+const routesListStore = useRoutesListStore()
 let settingStore = layoutSettingStore()
-const themeConfig = useThemeConfig();
-const config = themeConfig.config;
+const themeConfig = useThemeConfig()
+const config = themeConfig.config
 
-onBeforeMount(() => {
-}) // 生命周期 - 挂载之前
-onMounted(() => {
-}) // 生命周期 - 挂载完成（可以访问 DOM 元素）
-onBeforeUpdate(() => {
-}) // 生命周期 - 更新之前
-onUpdated(() => {
-}) // 生命周期 - 更新之后
-onBeforeUnmount(() => {
-}) // 生命周期 - 销毁之前
-onUnmounted(() => {
-}) // 生命周期 - 销毁完成
-onErrorCaptured((err) => {
-}) // 当事件处理程序或生命周期钩子抛出错误时
-onRenderTracked((e) => {
-}) // 渲染的时候可以追踪到
-onRenderTriggered((e) => {
-}) // 重新渲染的时候触发
+onBeforeMount(() => {}) // 生命周期 - 挂载之前
+onMounted(() => {}) // 生命周期 - 挂载完成（可以访问 DOM 元素）
+onBeforeUpdate(() => {}) // 生命周期 - 更新之前
+onUpdated(() => {}) // 生命周期 - 更新之后
+onBeforeUnmount(() => {}) // 生命周期 - 销毁之前
+onUnmounted(() => {}) // 生命周期 - 销毁完成
+onErrorCaptured((err) => {}) // 当事件处理程序或生命周期钩子抛出错误时
+onRenderTracked((e) => {}) // 渲染的时候可以追踪到
+onRenderTriggered((e) => {}) // 重新渲染的时候触发
 // 如果页面有 keep-alive 缓存功能,这个两个函数会触发
-onActivated(() => {
-}) // 进入的时候触发
-onDeactivated(() => {
-}) // 离开的时候触发
+onActivated(() => {}) // 进入的时候触发
+onDeactivated(() => {}) // 离开的时候触发
 </script>
 
 <script lang="ts">
@@ -139,17 +130,17 @@ export default {
   justify-content: center;
 
   p {
-    color: #4C4D4F;
+    color: #4c4d4f;
     padding-right: 10px;
   }
 
   a {
-    color: #4C4D4F;
+    color: #4c4d4f;
     text-decoration: none;
   }
 
   a:hover {
-    text-decoration: underline
+    text-decoration: underline;
   }
 }
 </style>

@@ -22,7 +22,7 @@ import pinia from '@/store'
 import './permisstion'
 // 如果只想导入css变量
 import 'element-plus/theme-chalk/dark/css-vars.css'
-import {directive} from "@/directive";
+import { directive } from '@/directive'
 
 // 获取应用实例
 const app = createApp(App)
@@ -37,6 +37,6 @@ app.use(router)
 // 安装仓库
 app.use(pinia)
 app.use(Particles)
-directive(app);
+directive(app)
 // 应用挂在到APP组件
 app.mount('#app')

@@ -1,4 +1,4 @@
-import {ThemeConfigState} from "@/store/modules/types/type";
+import { ThemeConfigState } from '@/store/modules/types/type'
 
 export const SET_THEME_CONFIG = (themeConfig: ThemeConfigState) => {
   return localStorage.setItem('themeConfig', JSON.stringify(themeConfig))

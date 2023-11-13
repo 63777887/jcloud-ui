@@ -74,7 +74,7 @@ export default defineConfig(({ command, mode }) => {
           //路径重写
           rewrite: (path) => path.replace(/^\/admin/, ''),
         },
-      }
+      },
     },
   }
 })

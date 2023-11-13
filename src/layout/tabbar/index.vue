@@ -18,11 +18,10 @@
 import Breadcrumb from './breadcrumb/index.vue'
 import Setting from './setting/index.vue'
 import Tabs from './tabs/index.vue'
-import useThemeConfig from "@/store/modules/themeConfig";
+import useThemeConfig from '@/store/modules/themeConfig'
 
-const config = useThemeConfig().config;
+const config = useThemeConfig().config
 </script>
-
 
 <style scoped lang="scss">
 .tabbar {
@@ -43,11 +42,9 @@ const config = useThemeConfig().config;
       display: flex;
       align-items: center;
     }
-
   }
   .tabbar-bottom {
     height: $base-tabbar-height - $base-breadcrumb-height;
   }
 }
-
 </style>

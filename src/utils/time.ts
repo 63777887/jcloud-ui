@@ -1,5 +1,4 @@
-import dayjs from "dayjs";
-
+import dayjs from 'dayjs'
 
 export const getTimeAdverbial = (): string => {
   const hours = new Date().getHours()

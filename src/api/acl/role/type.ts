@@ -1,6 +1,5 @@
-
 //职位数据类型
-import {ResponseData} from "@/api/base/type";
+import { ResponseData } from '@/api/base/type'
 
 export interface RoleData {
   id?: number
@@ -57,7 +56,6 @@ export interface MenuResponseData extends ResponseData {
 //获取全部职位的接口返回的数据ts类型
 export interface AllRoleResponseData extends ResponseData {
   data: Records
-
 }
 
 export interface GetRoleInfoResponseData extends ResponseData {

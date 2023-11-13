@@ -2,125 +2,226 @@
   <el-card>
     <el-form :inline="true" class="searchUser">
       <el-form-item label="用户名">
-        <el-input placeholder="请输入用户名" v-model="usernameParam" @change="getHasUser" clearable></el-input>
+        <el-input
+          placeholder="请输入用户名"
+          v-model="usernameParam"
+          @change="getHasUser"
+          clearable
+        ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" size="default" :disabled="!usernameParam.length > 0" @click="getHasUser">搜索
+        <el-button
+          type="primary"
+          size="default"
+          :disabled="!usernameParam.length > 0"
+          @click="getHasUser"
+        >
+          搜索
         </el-button>
         <el-button size="default" @click="reset">重置</el-button>
       </el-form-item>
     </el-form>
 
     <div class="searchButton">
-      <el-button type="primary" size="default" @click="showAddUser" v-auth="'sys_user_add'">添加用户</el-button>
-      <el-button type="primary" size="default" :disabled="!selectedUser.length > 0" v-auth="'sys_delete_user_batch'"  @click="delUserBatch">批量删除
+      <el-button
+        type="primary"
+        size="default"
+        @click="showAddUser"
+        v-auth="'sys_user_add'"
+      >
+        添加用户
+      </el-button>
+      <el-button
+        type="primary"
+        size="default"
+        :disabled="!selectedUser.length > 0"
+        v-auth="'sys_delete_user_batch'"
+        @click="delUserBatch"
+      >
+        批量删除
       </el-button>
     </div>
     <!--    表格展示-->
     <el-table border :data="userArr" @selection-change="userSelectedChange">
       <el-table-column type="selection" align="center"></el-table-column>
       <el-table-column label="#" type="index"></el-table-column>
-      <el-table-column label="用户名" prop="username" align="center" show-overflow-tooltip></el-table-column>
-      <el-table-column label="用户名称" prop="nickName" align="center" show-overflow-tooltip></el-table-column>
-      <el-table-column label="手机号" prop="phone" align="center" show-overflow-tooltip></el-table-column>
+      <el-table-column
+        label="用户名"
+        prop="username"
+        align="center"
+        show-overflow-tooltip
+      ></el-table-column>
+      <el-table-column
+        label="用户名称"
+        prop="nickName"
+        align="center"
+        show-overflow-tooltip
+      ></el-table-column>
+      <el-table-column
+        label="手机号"
+        prop="phone"
+        align="center"
+        show-overflow-tooltip
+      ></el-table-column>
       <el-table-column label="用户角色" prop="roleName" align="center">
         <template #default="scope">
-          <el-tag v-for="(item,index) in scope.row.sysRoles" :key="item.id"
-                  type="success"
-          >{{ item.roleName }}
+          <el-tag
+            v-for="(item, index) in scope.row.sysRoles"
+            :key="item.id"
+            type="success"
+          >
+            {{ item.roleName }}
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="启用" prop="status" align="center" show-overflow-tooltip>
+      <el-table-column
+        label="启用"
+        prop="status"
+        align="center"
+        show-overflow-tooltip
+      >
         <template #default="scope">
           <el-switch
-              v-model="scope.row.enable"
-              inline-prompt
-              active-text="是"
-              :disabled="scope.row.id == store.user.userId"
-              inactive-text="否"
-              @change="changeUserStatus(scope.row)"
+            v-model="scope.row.enable"
+            inline-prompt
+            active-text="是"
+            :disabled="scope.row.id == store.user.userId"
+            inactive-text="否"
+            @change="changeUserStatus(scope.row)"
           />
         </template>
       </el-table-column>
-      <el-table-column label="更新时间" prop="updateTime" width="180px" align="center" show-overflow-tooltip>
+      <el-table-column
+        label="更新时间"
+        prop="updateTime"
+        width="180px"
+        align="center"
+        show-overflow-tooltip
+      >
         <template #default="scope">
           {{ dateFormat(scope.row.updateTime) }}
         </template>
       </el-table-column>
       <el-table-column label="操作" width="240" align="center" class="operate">
-        <template #="{row,$index}">
-          <el-tooltip effect="dark" content="编辑用户" placement="top" :enterable="false">
-            <el-button v-auth="'sys_user_update'" text type="primary" icon="Edit" size="small" @click="showUpdateUser(row)">编辑</el-button>
+        <template #="{ row, $index }">
+          <el-tooltip
+            effect="dark"
+            content="编辑用户"
+            placement="top"
+            :enterable="false"
+          >
+            <el-button
+              v-auth="'sys_user_update'"
+              text
+              type="primary"
+              icon="Edit"
+              size="small"
+              @click="showUpdateUser(row)"
+            >
+              编辑
+            </el-button>
           </el-tooltip>
-          <el-tooltip effect="dark" content="删除用户" placement="top" :enterable="false">
-            <el-button v-auth="'sys_user_delete'" :disabled="row.id == store.user.userId" text type="primary" icon="Delete" size="small"
-                       @click="delUser(row)">删除</el-button>
+          <el-tooltip
+            effect="dark"
+            content="删除用户"
+            placement="top"
+            :enterable="false"
+          >
+            <el-button
+              v-auth="'sys_user_delete'"
+              :disabled="row.id == store.user.userId"
+              text
+              type="primary"
+              icon="Delete"
+              size="small"
+              @click="delUser(row)"
+            >
+              删除
+            </el-button>
           </el-tooltip>
-          <jwk-popover :data="row" @getHasUser="getHasUser">
-          </jwk-popover>
+          <jwk-popover :data="row" @getHasUser="getHasUser"></jwk-popover>
         </template>
       </el-table-column>
     </el-table>
     <el-pagination
-        v-model:current-page="pageNo"
-        v-model:page-size="pageSize"
-        :page-sizes="[1, 5, 10,20]"
-        layout="sizes, prev, pager, next, jumper, ->, total"
-        :total="total"
-        @current-change="getHasUser"
-        @size-change="getHasUser"
+      v-model:current-page="pageNo"
+      v-model:page-size="pageSize"
+      :page-sizes="[1, 5, 10, 20]"
+      layout="sizes, prev, pager, next, jumper, ->, total"
+      :total="total"
+      @current-change="getHasUser"
+      @size-change="getHasUser"
     />
     <el-drawer v-model="userDrawer" :before-close="userCancel">
       <template #header>
         <h4>{{ userParams.id ? '编辑用户' : '添加用户' }}</h4>
       </template>
       <template #default>
-        <el-form :model="userParams" :rules="userRules" ref="userFormRef" label-width="100px">
+        <el-form
+          :model="userParams"
+          :rules="userRules"
+          ref="userFormRef"
+          label-width="100px"
+        >
           <el-form-item label="用户名" prop="username">
-            <el-input v-model="userParams.username" placeholder="请输入用户名"></el-input>
+            <el-input
+              v-model="userParams.username"
+              placeholder="请输入用户名"
+            ></el-input>
           </el-form-item>
           <el-form-item label="用户昵称" prop="nickName">
-            <el-input v-model="userParams.nickName" placeholder="请输入用户昵称"></el-input>
+            <el-input
+              v-model="userParams.nickName"
+              placeholder="请输入用户昵称"
+            ></el-input>
           </el-form-item>
           <el-form-item label="手机号" prop="phone">
-            <el-input v-model="userParams.phone" placeholder="请输入手机号"></el-input>
+            <el-input
+              v-model="userParams.phone"
+              placeholder="请输入手机号"
+            ></el-input>
           </el-form-item>
           <el-form-item label="邮箱" prop="email">
-            <el-input v-model="userParams.email" placeholder="请输入邮箱"></el-input>
+            <el-input
+              v-model="userParams.email"
+              placeholder="请输入邮箱"
+            ></el-input>
           </el-form-item>
           <el-form-item label="用户密码" prop="password" v-if="!userParams.id">
-            <el-input v-model="userParams.password" placeholder="请输入用户密码"></el-input>
+            <el-input
+              v-model="userParams.password"
+              placeholder="请输入用户密码"
+            ></el-input>
           </el-form-item>
           <el-form-item label="状态" prop="status">
             <template #default="scope">
               <el-switch
-                  v-model="userParams.enable"
-                  inline-prompt
-                  active-text="启用"
-                  inactive-text="停用"
-                  :disabled="userParams.id == store.user.userId"
-                  size="large"
-                  width="70px"
+                v-model="userParams.enable"
+                inline-prompt
+                active-text="启用"
+                inactive-text="停用"
+                :disabled="userParams.id == store.user.userId"
+                size="large"
+                width="70px"
               />
             </template>
           </el-form-item>
           <el-form-item label="用户角色" prop="name">
             <el-select
-                v-model="checkedRoles"
-                multiple
-                collapse-tags
-                collapse-tags-tooltip
-                :max-collapse-tags="3"
-                filterable
-                placeholder="请选择角色"
-                style="width: 240px"
+              v-model="checkedRoles"
+              multiple
+              collapse-tags
+              collapse-tags-tooltip
+              :max-collapse-tags="3"
+              filterable
+              placeholder="请选择角色"
+              style="width: 240px"
             >
               <el-option
-                  v-for="item in allRoles"
-                  :key="item.id"
-                  :label="item.roleName"
-                  :value="item.id"
+                v-for="item in allRoles"
+                :key="item.id"
+                :label="item.roleName"
+                :value="item.id"
               />
             </el-select>
           </el-form-item>
@@ -132,101 +233,108 @@
       </template>
     </el-drawer>
   </el-card>
-
 </template>
 
 <script setup lang="ts">
-import {nextTick, onMounted, reactive, ref} from "vue";
-import {reqAddOrUpdateUser, reqDelUserBatch, reqGetUserInfo, reqRemoveUser, reqUserListByPage} from "@/api/acl/user";
-import { User, UserReq, UserResponseData} from "@/api/acl/user/type";
-import {ElMessage, ElMessageBox} from "element-plus";
-import userStore from "@/store/modules/user";
-import layoutSettingStore from "@/store/modules/setting";
-import {dateFormat} from "@/utils/time";
-import JwkPopover from "./jwkPopover/index.vue";
-import {reqAllRole} from "@/api/acl/role";
-import {SUCCESS_CODE} from "@/api/base/type";
-import {AllRoleResponseData} from "@/api/acl/role/type";
+import { nextTick, onMounted, reactive, ref } from 'vue'
+import {
+  reqAddOrUpdateUser,
+  reqDelUserBatch,
+  reqGetUserInfo,
+  reqRemoveUser,
+  reqUserListByPage,
+} from '@/api/acl/user'
+import { User, UserReq, UserResponseData } from '@/api/acl/user/type'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import userStore from '@/store/modules/user'
+import layoutSettingStore from '@/store/modules/setting'
+import { dateFormat } from '@/utils/time'
+import JwkPopover from './jwkPopover/index.vue'
+import { reqAllRole } from '@/api/acl/role'
+import { SUCCESS_CODE } from '@/api/base/type'
+import { AllRoleResponseData } from '@/api/acl/role/type'
 
-const store = userStore();
+const store = userStore()
 
-let pageNo = ref<number>(1);
-let pageSize = ref<number>(10);
-let usernameParam = ref<string>("");
+let pageNo = ref<number>(1)
+let pageSize = ref<number>(10)
+let usernameParam = ref<string>('')
 // 用户总个数
-let total = ref<number>(0);
+let total = ref<number>(0)
 // 存储全部用户的数组
-let userArr = ref([]);
-let userDrawer = ref<boolean>(false);
+let userArr = ref([])
+let userDrawer = ref<boolean>(false)
 
+let allRoles = []
+let checkedRoles = ref([])
+let selectedUser = ref([])
 
-let allRoles = [];
-let checkedRoles = ref([]);
-let selectedUser = ref([]);
-
-let userFormRef = ref();
+let userFormRef = ref()
 
 let userParams = reactive<UserReq>({
   id: 0,
-  updateTime: "",
-  username: "",
-  nickName: "",
-  phone: "",
-  email: "",
+  updateTime: '',
+  username: '',
+  nickName: '',
+  phone: '',
+  email: '',
   orgId: 0,
   status: 0,
   enable: true,
-  password: "",
-  roles: []
-});
+  password: '',
+  roles: [],
+})
 
 let userRules = {
   username: [
-    {required: true, message: '请输入用户姓名', trigger: 'blur'},
-    {min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur'},
+    { required: true, message: '请输入用户姓名', trigger: 'blur' },
+    { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
   ],
   nickName: [
-    {required: true, message: '请输入用户昵称', trigger: 'blur'},
-    {min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur'},
+    { required: true, message: '请输入用户昵称', trigger: 'blur' },
+    { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
   ],
   password: [
-    {required: true, message: '请输入密码', trigger: 'blur'},
-    {min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur'},
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
   ],
   email: [
-    {required: true, message: '请输入邮箱', trigger: 'blur'},
-    {min: 3, max: 20, message: '长度在 3 到 20', trigger: 'blur'},
+    { required: true, message: '请输入邮箱', trigger: 'blur' },
+    { min: 3, max: 20, message: '长度在 3 到 20', trigger: 'blur' },
   ],
   phone: [
-    {required: true, message: '请输入手机号', trigger: 'blur'},
-    {min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur'},
+    { required: true, message: '请输入手机号', trigger: 'blur' },
+    { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
   ],
 }
 
 const getHasUser = async () => {
-  let result: UserResponseData = await reqUserListByPage(pageNo.value, pageSize.value, usernameParam.value);
+  let result: UserResponseData = await reqUserListByPage(
+    pageNo.value,
+    pageSize.value,
+    usernameParam.value,
+  )
   if (result.code == SUCCESS_CODE) {
-    total.value = result.data.total;
-    userArr.value = result.data.records;
-    userArr.value.forEach(item => {
+    total.value = result.data.total
+    userArr.value = result.data.records
+    userArr.value.forEach((item) => {
       switch (item.status) {
         case 1:
-          item.enable = true;
-          break;
+          item.enable = true
+          break
         case 2:
-          item.enable = false;
+          item.enable = false
           break
         default:
-          item.enable = false;
+          item.enable = false
           break
       }
-
     })
   }
 }
 
 const showAddUser = async () => {
-  const allRoleResponseData: AllRoleResponseData = await reqAllRole();
+  const allRoleResponseData: AllRoleResponseData = await reqAllRole()
   if (allRoleResponseData.code == SUCCESS_CODE) {
     allRoles = allRoleResponseData.data
   }
@@ -234,7 +342,7 @@ const showAddUser = async () => {
 }
 
 const showUpdateUser = async (row: User) => {
-  const userInfoResponseData = await reqGetUserInfo(row.id as number);
+  const userInfoResponseData = await reqGetUserInfo(row.id as number)
   if (userInfoResponseData.code != SUCCESS_CODE) {
     ElMessage.error(userInfoResponseData.msg)
     return
@@ -248,12 +356,12 @@ const showUpdateUser = async (row: User) => {
     orgId: userInfoResponseData.data.orgId,
     enable: userInfoResponseData.data.status == 1,
     status: userInfoResponseData.data.status,
-  });
-  const allRoleResponseData: AllRoleResponseData = await reqAllRole();
+  })
+  const allRoleResponseData: AllRoleResponseData = await reqAllRole()
   if (allRoleResponseData.code == SUCCESS_CODE) {
     allRoles = allRoleResponseData.data
     if (userInfoResponseData.data.sysRoles) {
-      checkedRoles.value = row.sysRoles.map(t => t.id)
+      checkedRoles.value = row.sysRoles.map((t) => t.id)
     }
   }
   userDrawer.value = true
@@ -262,7 +370,7 @@ const showUpdateUser = async (row: User) => {
 const saveUser = async () => {
   await userFormRef.value.validate()
   userParams.roles = checkedRoles.value
-  const result = await reqAddOrUpdateUser(userParams);
+  const result = await reqAddOrUpdateUser(userParams)
   if (result.code == SUCCESS_CODE) {
     ElMessage.success(userParams.id ? '更新成功' : '添加成功')
     if (!userParams.id) {
@@ -280,14 +388,14 @@ const saveUser = async () => {
   //清除上一次的错误的提示信息
   nextTick(() => {
     clearUserParams()
-  });
+  })
 }
 
 const changeUserStatus = async (row: User) => {
   let updateUser = {} as UserReq
   updateUser.id = row.id
-  updateUser.status = row.enable ? 1 : 2;
-  const result = await reqAddOrUpdateUser(updateUser);
+  updateUser.status = row.enable ? 1 : 2
+  const result = await reqAddOrUpdateUser(updateUser)
   if (result.code == SUCCESS_CODE) {
     ElMessage.success(row.enable ? '启用成功' : '停用成功')
     if (!userParams.id) {
@@ -308,7 +416,6 @@ const userCancel = () => {
   checkedRoles.value = []
   //清空数据
   userParamsCancel()
-
 }
 
 const userParamsCancel = () => {
@@ -316,31 +423,37 @@ const userParamsCancel = () => {
   nextTick(() => {
     clearUserParams()
     userFormRef.value.clearValidate()
-  });
-
+  })
 }
 
 const delUser = async (row) => {
-  ElMessageBox.confirm(`此操作将永久删除该用户: ${row.username}，是否继续`, '提示', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning',
-    draggable: true,
-  }).then(async () => {
-    const result = await reqRemoveUser(row.id);
-    if (result.code == SUCCESS_CODE) {
-      ElMessage.success('删除成功')
-      pageNo.value = userArr.value.length > 1 ? pageNo.value : pageNo.value - 1
-      await getHasUser()
-    } else {
-      ElMessage({
-        type: 'info',
-        message: '删除失败',
-      })
-    }
-  }).catch(() => {
-    ElMessage.info('已取消')
-  })
+  ElMessageBox.confirm(
+    `此操作将永久删除该用户: ${row.username}，是否继续`,
+    '提示',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+      draggable: true,
+    },
+  )
+    .then(async () => {
+      const result = await reqRemoveUser(row.id)
+      if (result.code == SUCCESS_CODE) {
+        ElMessage.success('删除成功')
+        pageNo.value =
+          userArr.value.length > 1 ? pageNo.value : pageNo.value - 1
+        await getHasUser()
+      } else {
+        ElMessage({
+          type: 'info',
+          message: '删除失败',
+        })
+      }
+    })
+    .catch(() => {
+      ElMessage.info('已取消')
+    })
 }
 
 const delUserBatch = () => {
@@ -349,22 +462,25 @@ const delUserBatch = () => {
     cancelButtonText: '取消',
     type: 'warning',
     draggable: true,
-  }).then(async () => {
-    const userIds = selectedUser.value.map(item => item.id);
-    const result: any = await reqDelUserBatch(userIds);
-    if (result.code == SUCCESS_CODE) {
-      ElMessage.success('删除成功')
-      pageNo.value = userArr.value.length > 1 ? pageNo.value : pageNo.value - 1
-      await getHasUser()
-    } else {
-      ElMessage({
-        type: 'info',
-        message: '删除失败',
-      })
-    }
-  }).catch(() => {
-    ElMessage.info('已取消')
   })
+    .then(async () => {
+      const userIds = selectedUser.value.map((item) => item.id)
+      const result: any = await reqDelUserBatch(userIds)
+      if (result.code == SUCCESS_CODE) {
+        ElMessage.success('删除成功')
+        pageNo.value =
+          userArr.value.length > 1 ? pageNo.value : pageNo.value - 1
+        await getHasUser()
+      } else {
+        ElMessage({
+          type: 'info',
+          message: '删除失败',
+        })
+      }
+    })
+    .catch(() => {
+      ElMessage.info('已取消')
+    })
 }
 
 const userSelectedChange = (arr) => {
@@ -374,28 +490,27 @@ const userSelectedChange = (arr) => {
 const clearUserParams = () => {
   Object.assign(userParams, {
     id: 0,
-    updateTime: "",
-    username: "",
-    nickName: "",
-    phone: "",
-    email: "",
+    updateTime: '',
+    username: '',
+    nickName: '',
+    phone: '',
+    email: '',
     enable: true,
     orgId: 0,
     status: 0,
-    password: "",
-    roles: []
-  });
+    password: '',
+    roles: [],
+  })
 }
 
 const reset = () => {
-  const settingStore = layoutSettingStore();
+  const settingStore = layoutSettingStore()
   settingStore.refreshWeb = !settingStore.refreshWeb
 }
 
 onMounted(() => {
   getHasUser()
 })
-
 </script>
 
 <style scoped lang="scss">
