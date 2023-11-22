@@ -57,7 +57,11 @@
       </el-dropdown-menu>
     </template>
   </el-dropdown>
-  <user-center v-if="userDrawer" :user-drawer="userDrawer" @close="closeUserCenter"></user-center>
+  <user-center
+    v-if="userDrawer"
+    :user-drawer="userDrawer"
+    @close="closeUserCenter"
+  ></user-center>
   <Theme></Theme>
 </template>
 
@@ -78,7 +82,8 @@ import {
   onRenderTracked,
   onRenderTriggered,
   onUnmounted,
-  onUpdated, ref,
+  onUpdated,
+  ref,
 } from 'vue'
 import layoutSettingStore from '@/store/modules/setting'
 import userStore from '@/store/modules/user'

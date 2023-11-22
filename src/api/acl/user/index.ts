@@ -1,7 +1,7 @@
 //用户管理模块的接口
 import adminRequest from '@/utils/adminRequest'
 import type { AllRoleResponseData, UserResponseData } from './type'
-import {GetUserInfoResponseData, UpdatePasswordReq, UserReq} from './type'
+import { GetUserInfoResponseData, UpdatePasswordReq, UserReq } from './type'
 import { UnwrapNestedRefs } from 'vue'
 
 //枚举地址

@@ -4,7 +4,8 @@ import { defineStore } from 'pinia'
 import { reqLogin, reqLogout, reqUserInfo } from '@/api/user'
 import {
   LoginFormData,
-  LoginResponseData, SysUser,
+  LoginResponseData,
+  SysUser,
   TokenData,
   UserInfoResponseData,
 } from '@/api/user/type'
@@ -21,7 +22,7 @@ import { REMOVE_TAGS_VIEW_LIST } from '@/utils/tabs'
 import { useRoutesListStore } from '@/store/modules/routesList'
 import pinia from '@/store'
 import { SUCCESS_CODE } from '@/api/base/type'
-import watermark from "@/utils/wartermark.ts";
+import watermark from '@/utils/wartermark.ts'
 
 const routesListStore = useRoutesListStore(pinia)
 
