@@ -52,19 +52,20 @@
     </span>
     <template #dropdown>
       <el-dropdown-menu>
+        <el-dropdown-item @click="showUserCenter">个人中心</el-dropdown-item>
         <el-dropdown-item @click="logout">退出登陆</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
-
+  <user-center v-if="userDrawer" :user-drawer="userDrawer" @close="closeUserCenter"></user-center>
   <Theme></Theme>
 </template>
 
 <script setup lang="ts">
 // 这里可以导入其他文件（比如：组件，工具 js，第三方插件 js，json 文件，图片文件等等）
 // 例如：import  《组件名称》  from '《组件路径》 ';
-import setting from '@/setting'
 import Theme from './theme/index.vue'
+import UserCenter from './userCenter/index.vue'
 import {
   nextTick,
   onActivated,
@@ -77,7 +78,7 @@ import {
   onRenderTracked,
   onRenderTriggered,
   onUnmounted,
-  onUpdated,
+  onUpdated, ref,
 } from 'vue'
 import layoutSettingStore from '@/store/modules/setting'
 import userStore from '@/store/modules/user'
@@ -97,10 +98,19 @@ let store = userStore()
 let $router = useRouter()
 let $route = useRoute()
 let config = useThemeConfig().config
+let userDrawer = ref(false)
 
 // 刷新按钮
 const refreshWeb = () => {
   settingStore.refreshWeb = !settingStore.refreshWeb
+}
+
+const showUserCenter = () => {
+  userDrawer.value = true
+}
+
+const closeUserCenter = () => {
+  userDrawer.value = false
 }
 
 // 全屏按钮
@@ -123,7 +133,6 @@ const themeSetting = () => {
 
 // 退出登录
 const logout = async () => {
-  watermark.del()
   await store.userLogout()
   $router.push({ path: '/login', query: { redirect: $route.path } })
 }

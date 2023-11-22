@@ -85,7 +85,7 @@
             v-model="scope.row.enable"
             inline-prompt
             active-text="是"
-            :disabled="scope.row.id == store.user.userId"
+            :disabled="scope.row.id == store.user.id"
             inactive-text="否"
             @change="changeUserStatus(scope.row)"
           />
@@ -129,7 +129,7 @@
           >
             <el-button
               v-auth="'sys_user_delete'"
-              :disabled="row.id == store.user.userId"
+              :disabled="row.id == store.user.id"
               text
               type="primary"
               icon="Delete"
@@ -200,7 +200,7 @@
                 inline-prompt
                 active-text="启用"
                 inactive-text="停用"
-                :disabled="userParams.id == store.user.userId"
+                :disabled="userParams.id == store.user.id"
                 size="large"
                 width="70px"
               />
@@ -292,7 +292,7 @@ let userRules = {
   ],
   nickName: [
     { required: true, message: '请输入用户昵称', trigger: 'blur' },
-    { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
+    { min: 2, max: 12, message: '长度在 2 到 12', trigger: 'blur' },
   ],
   password: [
     { required: true, message: '请输入密码', trigger: 'blur' },

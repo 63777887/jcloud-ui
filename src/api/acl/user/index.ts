@@ -1,7 +1,7 @@
 //用户管理模块的接口
 import adminRequest from '@/utils/adminRequest'
 import type { AllRoleResponseData, UserResponseData } from './type'
-import { GetUserInfoResponseData, UserReq } from './type'
+import {GetUserInfoResponseData, UpdatePasswordReq, UserReq} from './type'
 import { UnwrapNestedRefs } from 'vue'
 
 //枚举地址
@@ -19,6 +19,7 @@ enum API {
   DELETE_USER_URL = '/user/delete',
   //批量删除的接口
   DELETE_ALL_USER_URL = '/user/deleteBatch',
+  UPDATE_PASSWORD_URL = '/user/updatePassword',
 }
 
 //获取用户账号信息的接口
@@ -61,3 +62,7 @@ export const reqRemoveUser = (userId: number) =>
 //批量删除的接口
 export const reqDelUserBatch = (userIds: number[]) =>
   adminRequest.post(API.DELETE_ALL_USER_URL, userIds)
+
+//批量删除的接口
+export const reqUpdatePassword = (passwordReq: UpdatePasswordReq) =>
+  adminRequest.post(API.UPDATE_PASSWORD_URL, passwordReq)

@@ -6,7 +6,6 @@
 </template>
 
 <script setup lang="ts" name="Logo">
-import setting from '@/setting'
 import useThemeConfig from '@/store/modules/themeConfig'
 import layoutSettingStore from '@/store/modules/setting'
 import logo from '@/assets/images/jcloud.png'

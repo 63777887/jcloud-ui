@@ -8,26 +8,6 @@ export interface LoginFormData {
   password: string
 }
 
-//定义全部接口返回数据都拥有ts类型
-export interface TokenData {
-  sub: string
-  clientId: string
-  iss: string
-  token_type: string
-  userId: number
-  orgId: number
-  access_token: string
-  refresh_token: string
-  aud: string[]
-  license: string
-  nbf: number
-  scope: string[]
-  exp: number
-  expires_in: number
-  iat: number
-  jti: string
-  username: string
-}
 
 //定义全部接口返回数据都拥有ts类型
 export interface SysMenu {

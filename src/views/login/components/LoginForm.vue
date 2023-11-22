@@ -42,7 +42,7 @@
       :rules="rules"
       class="login-box"
       :class="{ up: inputFocused.up }"
-      @keydown="submitForm"
+      @keydown.enter="submitForm"
     >
       <div class="hand left"></div>
       <div class="hand right"></div>

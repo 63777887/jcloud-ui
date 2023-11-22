@@ -28,10 +28,7 @@
         <Main></Main>
       </el-main>
       <el-footer v-if="config.openFooter">
-        <p>Copyright © 2023.</p>
-        <a href="https://gitee.com/musi1996/jcloud">
-          https://gitee.com/musi1996/jcloud
-        </a>
+        <p>Copyright © 2023. JCloud</p>
       </el-footer>
     </el-container>
   </el-container>

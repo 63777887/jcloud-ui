@@ -31,6 +31,13 @@ export interface UserReq {
   password: string
   roles: number[]
 }
+
+//修改密码的ts类型
+export interface UpdatePasswordReq {
+  oldPassword: string
+  newPassword: string
+  confirmPassword: string
+}
 //数组包含全部的用户信息
 type Records = User[]
 //获取全部用户信息接口返回的数据ts类型

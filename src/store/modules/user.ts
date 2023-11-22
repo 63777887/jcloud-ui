@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 import { reqLogin, reqLogout, reqUserInfo } from '@/api/user'
 import {
   LoginFormData,
-  LoginResponseData,
+  LoginResponseData, SysUser,
   TokenData,
   UserInfoResponseData,
 } from '@/api/user/type'
@@ -21,6 +21,7 @@ import { REMOVE_TAGS_VIEW_LIST } from '@/utils/tabs'
 import { useRoutesListStore } from '@/store/modules/routesList'
 import pinia from '@/store'
 import { SUCCESS_CODE } from '@/api/base/type'
+import watermark from "@/utils/wartermark.ts";
 
 const routesListStore = useRoutesListStore(pinia)
 
@@ -30,7 +31,7 @@ let userStore = defineStore('User', {
     return {
       token: GET_ACCESS_TOKEN(),
       avatar: '',
-      user: {} as TokenData,
+      user: {} as SysUser,
       //存储当前用户是否包含某一个按钮
       buttons: [],
     }
@@ -53,9 +54,7 @@ let userStore = defineStore('User', {
       //    获取用户信息存储
       const responseData: UserInfoResponseData = await reqUserInfo()
       if (responseData.code == SUCCESS_CODE) {
-        this.user.username = responseData.data.sysUser.username
-        // this.avatar = responseData.data.avatar
-        this.user.userId = responseData.data.sysUser.id
+        this.user = responseData.data.sysUser
         if (responseData.data.buttons) {
           this.buttons = responseData.data.buttons.map((t) => t.permission)
         }
@@ -65,6 +64,7 @@ let userStore = defineStore('User', {
       }
     },
     async userLogout() {
+      watermark.del()
       // 退出
       const responseData = await reqLogout()
       if (responseData.code == SUCCESS_CODE) {

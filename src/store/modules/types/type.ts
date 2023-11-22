@@ -1,9 +1,9 @@
 import { RouteRecordRaw } from 'vue-router'
-import { TokenData } from '@/api/user/type'
+import {SysUser} from "@/api/user/type.ts";
 export interface UserState {
   token: string | null
   avatar: string
-  user: TokenData
+  user: SysUser
   buttons: string[]
 }
 
