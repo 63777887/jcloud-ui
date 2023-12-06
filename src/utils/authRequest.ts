@@ -42,6 +42,9 @@ request.interceptors.response.use(
       case 403:
         message = error.response.data.data
         break
+      case 424:
+        message = error.response.data.msg
+        break
       case 404:
         message = '请求地址错误'
         break

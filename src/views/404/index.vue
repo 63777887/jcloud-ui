@@ -130,8 +130,8 @@ onDeactivated(() => {}) // 离开的时候触发
   background-image: url('../../assets/images/error_images/blueprint.png');
 
   .el-footer {
-    background: #fff;
-    border-top: 1px solid #d0d0d0;
+    background: var(--el-bg-color-page);
+    border-top: 1px solid var(--el-bg-color-page);
     display: flex;
     align-items: center;
     justify-content: center;

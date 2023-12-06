@@ -20,9 +20,9 @@
               disabled
             ></el-input>
           </el-form-item>
-          <el-form-item label="用户昵称" prop="nickName">
+          <el-form-item label="用户昵称" prop="nickname">
             <el-input
-              v-model="userParams.nickName"
+              v-model="userParams.nickname"
               placeholder="请输入用户昵称"
             ></el-input>
           </el-form-item>
@@ -115,7 +115,7 @@ let userParams = reactive<UserReq>({
   id: 0,
   updateTime: '',
   username: '',
-  nickName: '',
+  nickname: '',
   phone: '',
   email: '',
   orgId: 0,
@@ -130,7 +130,7 @@ let passwordParams = reactive<UpdatePasswordReq>({
 })
 
 let userRules = {
-  nickName: [
+  nickname: [
     { required: true, message: '请输入用户昵称', trigger: 'blur' },
     { min: 2, max: 12, message: '长度在 2 到 12', trigger: 'blur' },
   ],
@@ -207,7 +207,7 @@ const clearUserParams = () => {
     id: 0,
     updateTime: '',
     username: '',
-    nickName: '',
+    nickname: '',
     phone: '',
     email: '',
     enable: true,

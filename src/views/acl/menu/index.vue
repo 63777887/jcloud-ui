@@ -22,7 +22,7 @@
       </el-form-item>
     </el-form>
 
-    <div class="searchButton">
+    <div class="search-button">
       <el-button
         v-auth="'sys_menu-add'"
         type="primary"
@@ -321,7 +321,7 @@
         </el-form-item>
       </el-form>
       <template #footer>
-        <span class="dialog-footer">
+        <span>
           <el-button @click="menuCancel">取消</el-button>
           <el-button type="primary" @click="save">确定</el-button>
         </span>
@@ -590,7 +590,7 @@ const reset = () => {
 </script>
 
 <style scoped>
-.searchButton {
+.search-button {
   margin-bottom: 15px;
 }
 

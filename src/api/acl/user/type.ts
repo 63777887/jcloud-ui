@@ -7,7 +7,7 @@ export interface User {
   id?: number
   updateTime?: string
   username?: string
-  nickName: string
+  nickname: string
   phone?: string
   email: string
   orgId: number
@@ -22,7 +22,7 @@ export interface UserReq {
   id?: number
   updateTime?: string
   username?: string
-  nickName: string
+  nickname: string
   phone?: string
   email: string
   orgId: number

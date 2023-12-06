@@ -171,6 +171,7 @@ const onSuccess = async () => {
     })
   } catch (error) {
     ElNotification.error(error.toString())
+    onClose() // 验证成功，需要手动关闭模态框
   } finally {
     buttonLoading.value = false
   }

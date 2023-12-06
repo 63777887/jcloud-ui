@@ -120,8 +120,8 @@ export default {
 }
 
 .el-footer {
-  background: #fff;
-  border-top: 1px solid #d0d0d0;
+  background: var(--el-bg-color-page);
+  border-top: 1px solid var(--el-bg-color-page);
   display: flex;
   align-items: center;
   justify-content: center;
