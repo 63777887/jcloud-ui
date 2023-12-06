@@ -4,9 +4,9 @@
       <div class="box">
         <div class="info-box">
           <img
-              :src="store.avatar ? store.avatar : defaultAvatar"
-              alt=""
-              class="avatar"
+            :src="store.avatar ? store.avatar : defaultAvatar"
+            alt=""
+            class="avatar"
           />
           <div class="bottom">
             <h3 class="title">
@@ -31,34 +31,32 @@
         <div class="log-box">
           <el-timeline>
             <el-timeline-item
-                v-for="(item, index) in logList"
-                :key="item.id"
-                :type="item.type"
-                :hollow="item.hollow"
-                :color="item.color"
-                :size="item.size"
-                :timestamp="item.timestamp"
+              v-for="(item, index) in logList"
+              :key="item.id"
+              :type="item.type"
+              :hollow="item.hollow"
+              :color="item.color"
+              :size="item.size"
+              :timestamp="item.timestamp"
             >
-              <el-text class="log-title-text" size="large">{{ item.logTitle + ' - ' + item.remoteAddr }}</el-text>
+              <el-text class="log-title-text" size="large">
+                {{ item.logTitle + ' - ' + item.remoteAddr }}
+              </el-text>
             </el-timeline-item>
-            <el-timeline-item
-                hollow
-                color="#0bbd87"
-            >
+            <el-timeline-item hollow color="#0bbd87">
               <el-text class="log-title-text" size="large">...</el-text>
             </el-timeline-item>
           </el-timeline>
         </div>
       </el-col>
     </el-row>
-
   </div>
 </template>
 
 <script setup lang="ts">
 // 这里可以导入其他文件（比如：组件，工具 js，第三方插件 js，json 文件，图片文件等等）
 // 例如：import  《组件名称》  from '《组件路径》 ';
-import {dateFormat, getTimeAdverbial} from '@/utils/time'
+import { dateFormat, getTimeAdverbial } from '@/utils/time'
 import {
   onActivated,
   onBeforeMount,
@@ -77,54 +75,43 @@ import TimeBox from '@/components/TimeBox/index.vue'
 import userStore from '@/store/modules/user'
 import layoutSettingStore from '@/store/modules/setting'
 import defaultAvatar from '@/assets/images/defaultAvatar.gif'
-import {reqGetLogList, reqGetLogLogin} from "@/api/acl/log";
-import {SUCCESS_CODE} from "@/api/base/type.ts";
-import {GetLogListResponseData, GetLogReq} from "@/api/acl/log/type.ts";
+import { reqGetLogList, reqGetLogLogin } from '@/api/acl/log'
+import { SUCCESS_CODE } from '@/api/base/type.ts'
+import { GetLogListResponseData, GetLogReq } from '@/api/acl/log/type.ts'
 
 const store = userStore()
 const settingStore = layoutSettingStore()
 
 let logList = ref()
 
-
 // setup在beforeCreate之前执行一次，this是undefined。
-onBeforeMount(() => {
-}) // 生命周期 - 挂载之前
+onBeforeMount(() => {}) // 生命周期 - 挂载之前
 onMounted(async () => {
-  let response: GetLogListResponseData = await reqGetLogLogin();
+  let response: GetLogListResponseData = await reqGetLogLogin()
   if (response.code == SUCCESS_CODE) {
     logList.value = response.data
-    logList.value.forEach(item => {
+    logList.value.forEach((item) => {
       if (item.status == 1) {
-        item.color = "#0bbd87"
+        item.color = '#0bbd87'
       } else {
-        item.color = "#FF0000"
+        item.color = '#FF0000'
       }
-      item.type = "primary"
+      item.type = 'primary'
       item.timestamp = dateFormat(item.createTime)
       item.hollow = true
     })
   }
 }) // 生命周期 - 挂载完成（可以访问 DOM 元素）
-onBeforeUpdate(() => {
-}) // 生命周期 - 更新之前
-onUpdated(() => {
-}) // 生命周期 - 更新之后
-onBeforeUnmount(() => {
-}) // 生命周期 - 销毁之前
-onUnmounted(() => {
-}) // 生命周期 - 销毁完成
-onErrorCaptured((err) => {
-}) // 当事件处理程序或生命周期钩子抛出错误时
-onRenderTracked((e) => {
-}) // 渲染的时候可以追踪到
-onRenderTriggered((e) => {
-}) // 重新渲染的时候触发
+onBeforeUpdate(() => {}) // 生命周期 - 更新之前
+onUpdated(() => {}) // 生命周期 - 更新之后
+onBeforeUnmount(() => {}) // 生命周期 - 销毁之前
+onUnmounted(() => {}) // 生命周期 - 销毁完成
+onErrorCaptured((err) => {}) // 当事件处理程序或生命周期钩子抛出错误时
+onRenderTracked((e) => {}) // 渲染的时候可以追踪到
+onRenderTriggered((e) => {}) // 重新渲染的时候触发
 // 如果页面有 keep-alive 缓存功能,这个两个函数会触发
-onActivated(() => {
-}) // 进入的时候触发
-onDeactivated(() => {
-}) // 离开的时候触发
+onActivated(() => {}) // 进入的时候触发
+onDeactivated(() => {}) // 离开的时候触发
 </script>
 
 <style scoped lang="scss">
@@ -162,7 +149,6 @@ onDeactivated(() => {
   }
 }
 
-
 .bottoms {
   margin-top: 10px;
 
@@ -170,16 +156,13 @@ onDeactivated(() => {
     margin-bottom: 30px;
 
     .log-title-text {
-
       font-size: 22px;
       font-weight: 500;
     }
-
   }
 
   .log-box {
     margin-left: 50px;
   }
-
 }
 </style>

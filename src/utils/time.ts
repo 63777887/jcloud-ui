@@ -21,6 +21,6 @@ export const dateFormat = (time): string => {
   return dayjs(time).format('YYYY-MM-DD HH:mm:ss')
 }
 
-export const parseDate = (time,format): string => {
+export const parseDate = (time, format): string => {
   return dayjs(time).format(format)
 }

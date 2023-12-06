@@ -16,7 +16,6 @@ export interface GetLogReq {
   status: number
 }
 
-
 //日志实体的ts类型
 export interface Log {
   id: number

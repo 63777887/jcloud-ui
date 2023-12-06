@@ -4,7 +4,7 @@ export interface ResponseData {
   msg: string
 }
 
-export const SUCCESS_CODE = "0"
+export const SUCCESS_CODE = '0'
 
 //修改密码的ts类型
 export interface ExportReq {

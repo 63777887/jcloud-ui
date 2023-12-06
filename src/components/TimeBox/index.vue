@@ -27,58 +27,46 @@ import {
   onRenderTracked,
   onRenderTriggered,
   onActivated,
-  onDeactivated
+  onDeactivated,
 } from 'vue'
-import dayjs from "dayjs";
-import {parseDate} from "@/utils/time.ts";
+import dayjs from 'dayjs'
+import { parseDate } from '@/utils/time.ts'
 
-
-const timer: any = ref(null);
-const time: any = ref({});
+const timer: any = ref(null)
+const time: any = ref({})
 const getDate = () => {
-  time.value = parseTime(new Date());
-};
+  time.value = parseTime(new Date())
+}
 // 根据传入的时间，处理成需要的对象函数
 const parseTime = (time) => {
-  let resObj: any = {};
-  let week = ['日', '一', '二', '三', '四', '五', '六'];
-  resObj.date = parseDate(time, 'YYYY年MM月DD日');
-  resObj.week = `星期${week[dayjs(time).day()]}`;
-  resObj.time = parseDate(time, 'HH:mm');
-  resObj.second = parseDate(time, 'ss');
-  return resObj;
-};
+  let resObj: any = {}
+  let week = ['日', '一', '二', '三', '四', '五', '六']
+  resObj.date = parseDate(time, 'YYYY年MM月DD日')
+  resObj.week = `星期${week[dayjs(time).day()]}`
+  resObj.time = parseDate(time, 'HH:mm')
+  resObj.second = parseDate(time, 'ss')
+  return resObj
+}
 
-
-onBeforeMount(() => {
-})// 生命周期 - 挂载之前
+onBeforeMount(() => {}) // 生命周期 - 挂载之前
 onMounted(() => {
   timer.value = setInterval(() => {
-    getDate();
-  }, 1000);
-})// 生命周期 - 挂载完成（可以访问 DOM 元素）
-onBeforeUpdate(() => {
-})// 生命周期 - 更新之前
-onUpdated(() => {
-})// 生命周期 - 更新之后
+    getDate()
+  }, 1000)
+}) // 生命周期 - 挂载完成（可以访问 DOM 元素）
+onBeforeUpdate(() => {}) // 生命周期 - 更新之前
+onUpdated(() => {}) // 生命周期 - 更新之后
 onBeforeUnmount(() => {
-  clearInterval(timer.value);
-  timer.value = null;
-})// 生命周期 - 销毁之前
-onUnmounted(() => {
-})// 生命周期 - 销毁完成
-onErrorCaptured((err) => {
-})// 当事件处理程序或生命周期钩子抛出错误时
-onRenderTracked((e) => {
-})// 渲染的时候可以追踪到
-onRenderTriggered((e) => {
-})// 重新渲染的时候触发
+  clearInterval(timer.value)
+  timer.value = null
+}) // 生命周期 - 销毁之前
+onUnmounted(() => {}) // 生命周期 - 销毁完成
+onErrorCaptured((err) => {}) // 当事件处理程序或生命周期钩子抛出错误时
+onRenderTracked((e) => {}) // 渲染的时候可以追踪到
+onRenderTriggered((e) => {}) // 重新渲染的时候触发
 // 如果页面有 keep-alive 缓存功能,这个两个函数会触发
-onActivated(() => {
-})// 进入的时候触发
-onDeactivated(() => {
-})// 离开的时候触发
-
+onActivated(() => {}) // 进入的时候触发
+onDeactivated(() => {}) // 离开的时候触发
 </script>
 
 <style scoped lang="scss">
