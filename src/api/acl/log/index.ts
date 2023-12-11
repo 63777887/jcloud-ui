@@ -17,4 +17,6 @@ export const reqGetLogList = (getLogReq: GetLogReq) =>
 
 //获取用户日志列表接口
 export const reqGetLogLogin = () =>
-  adminRequest.get<any, GetLogListResponseData>(API.LOG_LOGIN)
+  adminRequest.get<any, GetLogListResponseData>(API.LOG_LOGIN,{
+      params: {"serviceId": "jiwkClient"}
+  })

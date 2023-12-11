@@ -290,6 +290,7 @@
             clearable
             check-strictly
             placeholder="请选择父级菜单"
+            :disabled="menuData.type === 2 && menuData.id"
           ></el-tree-select>
         </el-form-item>
 

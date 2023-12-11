@@ -47,7 +47,7 @@
           size="default"
           icon="Upload"
           plain
-          v-auth="'sys_delete_user_batch'"
+          v-auth="'sys_user_import'"
           @click="showUpload = true"
         >
           导入
@@ -56,7 +56,7 @@
           icon="Download"
           size="default"
           plain
-          v-auth="'sys_delete_user_batch'"
+          v-auth="'sys_user_export'"
           @click="showExport = true"
         >
           导出
@@ -263,6 +263,7 @@
       :before-upload="beforeUpload"
       title="用户导入"
       :http-request="httpRequest"
+      :download-temp="downloadTemp"
       accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     ></jwk-upload>
     <jwk-export
@@ -280,7 +281,7 @@
 import { nextTick, onMounted, reactive, ref } from 'vue'
 import {
   reqAddOrUpdateUser,
-  reqDelUserBatch,
+  reqDelUserBatch, reqExportTemp,
   reqExportUser,
   reqGetUserInfo,
   reqImportUser,
@@ -400,9 +401,14 @@ const closeExport = () => {
   showExport.value = false
 }
 
+// 下载模版的动作
+const downloadTemp = () => {
+  reqExportTemp("USER")
+}
+
 const onConfirmHandler = (exportFields: []) => {
   const exportReq: ExportReq = {
-    businessType: 'user',
+    businessType: 'USER',
     password: '',
     isAll: true,
     conditions: null,
@@ -414,7 +420,7 @@ const onConfirmHandler = (exportFields: []) => {
 }
 
 const httpRequest = async (options: UploadRequestOptions) => {
-  let response: ResponseData = await reqImportUser(options.file)
+  let response: ResponseData = await reqImportUser(options.file,"USER")
   if (response.code === SUCCESS_CODE) {
     ElMessage.success('导入成功')
   } else {
