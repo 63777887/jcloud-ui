@@ -281,7 +281,8 @@
 import { nextTick, onMounted, reactive, ref } from 'vue'
 import {
   reqAddOrUpdateUser,
-  reqDelUserBatch, reqExportTemp,
+  reqDelUserBatch,
+  reqExportTemp,
   reqExportUser,
   reqGetUserInfo,
   reqImportUser,
@@ -403,7 +404,7 @@ const closeExport = () => {
 
 // 下载模版的动作
 const downloadTemp = () => {
-  reqExportTemp("USER")
+  reqExportTemp('USER')
 }
 
 const onConfirmHandler = (exportFields: []) => {
@@ -420,7 +421,7 @@ const onConfirmHandler = (exportFields: []) => {
 }
 
 const httpRequest = async (options: UploadRequestOptions) => {
-  let response: ResponseData = await reqImportUser(options.file,"USER")
+  let response: ResponseData = await reqImportUser(options.file, 'USER')
   if (response.code === SUCCESS_CODE) {
     ElMessage.success('导入成功')
   } else {
