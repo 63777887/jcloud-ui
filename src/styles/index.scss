@@ -20,3 +20,7 @@
 .el-menu--popup {
   padding: 0 ;
 }
+.el-menu {
+  border-right: none;
+  background-color: var(--next-bg-menuBackground);
+}

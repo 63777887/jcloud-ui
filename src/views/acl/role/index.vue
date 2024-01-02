@@ -561,7 +561,7 @@ onMounted(() => {
 }
 
 // 修改el-tree内容格式
-.el-tree ::v-deep .el-tree-node__content {
+.el-tree :deep .el-tree-node__content {
   height: 27px;
   font-size: 15px;
 }

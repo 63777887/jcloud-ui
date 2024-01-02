@@ -37,10 +37,10 @@ request.interceptors.response.use(
     const status = error.response.status
     switch (status) {
       case 401:
-        message = error.response.data.data
+        message = error.response.data.msg
         break
       case 403:
-        message = error.response.data.data
+        message = error.response.data.msg
         break
       case 424:
         message = error.response.data.msg
@@ -49,12 +49,13 @@ request.interceptors.response.use(
         message = '请求地址错误'
         break
       case 500:
-        message = '服务器出现问题'
+        message = error.response.data.msg
         break
       default:
         message = '网络出现问题'
         break
     }
+    console.log("---------",message)
     //提示错误信息
     return Promise.reject(message)
   },

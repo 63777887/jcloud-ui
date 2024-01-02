@@ -64,6 +64,7 @@ import { ElMessage } from 'element-plus'
 import store from '@/store'
 import { ClickOutside as vClickOutside } from 'element-plus'
 import { SUCCESS_CODE } from '@/api/base/type'
+import {validateEmail, validatePhone} from "@/utils/validateUtil.ts";
 type props = {
   data: User
 }
@@ -92,12 +93,10 @@ let userRules = {
     { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
   ],
   email: [
-    { required: true, message: '请输入邮箱', trigger: 'blur' },
-    { min: 3, max: 20, message: '长度在 3 到 20', trigger: 'blur' },
+    {validator: validateEmail, trigger: 'blur'}
   ],
   phone: [
-    { required: true, message: '请输入手机号', trigger: 'blur' },
-    { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
+    {validator: validatePhone, trigger: 'blur'}
   ],
 }
 

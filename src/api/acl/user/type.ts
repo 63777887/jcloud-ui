@@ -29,6 +29,7 @@ export interface UserReq {
   status: number
   enable: boolean
   password: string
+  icon: string
   roles: number[]
 }
 

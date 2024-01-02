@@ -92,11 +92,6 @@ export default {
   width: 75px !important;
 }
 
-.el-menu {
-  border-right: none;
-  background-color: var(--next-bg-menuBackground);
-}
-
 .layout-container {
   width: 100%;
   height: 100vh;

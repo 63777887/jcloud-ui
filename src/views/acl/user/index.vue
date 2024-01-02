@@ -305,6 +305,7 @@ import JwkExport from '@/components/JwkExport/index.vue'
 import { reqAllRole } from '@/api/acl/role'
 import { ExportReq, ResponseData, SUCCESS_CODE } from '@/api/base/type'
 import { AllRoleResponseData } from '@/api/acl/role/type'
+import {validateEmail, validatePhone} from "@/utils/validateUtil.ts";
 
 const store = userStore()
 
@@ -383,12 +384,10 @@ let userRules = {
     { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
   ],
   email: [
-    { required: true, message: '请输入邮箱', trigger: 'blur' },
-    { min: 3, max: 20, message: '长度在 3 到 20', trigger: 'blur' },
+    {validator: validateEmail, trigger: 'blur'}
   ],
   phone: [
-    { required: true, message: '请输入手机号', trigger: 'blur' },
-    { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
+    {validator: validatePhone, trigger: 'blur'}
   ],
 }
 

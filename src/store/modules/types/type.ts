@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import { SysUser } from '@/api/user/type.ts'
+import { SysUser } from '@/api/login/type.ts'
 export interface UserState {
   token: string | null
   avatar: string

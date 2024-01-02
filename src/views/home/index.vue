@@ -4,7 +4,7 @@
       <div class="box">
         <div class="info-box">
           <img
-            :src="store.avatar ? store.avatar : defaultAvatar"
+            :src="store.user.icon ? store.user.icon : defaultAvatar"
             alt=""
             class="avatar"
           />

@@ -42,7 +42,7 @@
     ></el-button>
   </el-tooltip>
 
-  <el-image :src="store.avatar ? store.avatar : defaultAvatar"></el-image>
+  <el-image :src="store.user.icon ? store.user.icon : defaultAvatar"></el-image>
   <el-dropdown>
     <span class="el-dropdown-link">
       {{ store.user.username ? store.user.username : '用户未登录' }}

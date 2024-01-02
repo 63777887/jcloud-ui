@@ -1,14 +1,14 @@
 // 创建用户相关的仓库
 import { defineStore } from 'pinia'
 // 引入接口
-import { reqLogin, reqLogout, reqUserInfo } from '@/api/user'
+import {reqPasswordLogin, reqLogout, reqUserInfo, reqCaptchaLogin} from '@/api/login'
 import {
-  LoginFormData,
+  AccountLoginFormData,
   LoginResponseData,
   SysUser,
   TokenData,
   UserInfoResponseData,
-} from '@/api/user/type'
+} from '@/api/login/type'
 import { UserState } from '@/store/modules/types/type'
 import {
   GET_ACCESS_TOKEN,
@@ -31,7 +31,6 @@ let userStore = defineStore('User', {
   state: (): UserState => {
     return {
       token: GET_ACCESS_TOKEN(),
-      avatar: '',
       user: {} as SysUser,
       //存储当前用户是否包含某一个按钮
       buttons: [],
@@ -39,8 +38,13 @@ let userStore = defineStore('User', {
   },
   // 处理逻辑/异步
   actions: {
-    async userLogin(data: LoginFormData) {
-      const responseData: LoginResponseData = await reqLogin(data)
+    async userLogin(data: any,grantType: String) {
+      let responseData: LoginResponseData;
+      if (grantType=="sms"){
+        responseData = await reqCaptchaLogin(data)
+      }else {
+        responseData = await reqPasswordLogin(data)
+      }
       if (responseData.code == SUCCESS_CODE) {
         let token: string = responseData.data.access_token
         SET_ACCESS_TOKEN(token)
@@ -72,7 +76,6 @@ let userStore = defineStore('User', {
         // 退出
         this.token = ''
         this.user = {} as TokenData
-        this.avatar = ''
         REMOVE_ACCESS_TOKEN()
         REMOVE_REFRESH_TOKEN()
         REMOVE_TAGS_VIEW_LIST()
