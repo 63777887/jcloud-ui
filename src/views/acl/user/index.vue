@@ -305,7 +305,7 @@ import JwkExport from '@/components/JwkExport/index.vue'
 import { reqAllRole } from '@/api/acl/role'
 import { ExportReq, ResponseData, SUCCESS_CODE } from '@/api/base/type'
 import { AllRoleResponseData } from '@/api/acl/role/type'
-import {validateEmail, validatePhone} from "@/utils/validateUtil.ts";
+import { validateEmail, validatePhone } from '@/utils/validateUtil.ts'
 
 const store = userStore()
 
@@ -383,12 +383,8 @@ let userRules = {
     { required: true, message: '请输入密码', trigger: 'blur' },
     { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
   ],
-  email: [
-    {validator: validateEmail, trigger: 'blur'}
-  ],
-  phone: [
-    {validator: validatePhone, trigger: 'blur'}
-  ],
+  email: [{ validator: validateEmail, trigger: 'blur' }],
+  phone: [{ validator: validatePhone, trigger: 'blur' }],
 }
 
 const beforeUpload = (rawFile: UploadRawFile) => {}

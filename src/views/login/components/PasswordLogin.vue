@@ -1,23 +1,23 @@
 <template>
   <el-form
-      ref="loginFormRef"
-      :model="loginForm"
-      :rules="rules"
-      class="login-box"
-      :class="{ up: inputFocused.up }"
-      @keydown.enter="submitForm"
+    ref="loginFormRef"
+    :model="loginForm"
+    :rules="rules"
+    class="login-box"
+    :class="{ up: inputFocused.up }"
+    @keydown.enter="submitForm"
   >
     <div class="hand left"></div>
     <div class="hand right"></div>
     <h1>用户登录</h1>
     <el-form-item prop="username" class="ipt-box">
       <el-input
-          class="rule-input-edit"
-          v-model="loginForm.username"
-          autocomplete="off"
-          clearable
-          @focus="focusedInput('username')"
-          @blur="blurInput('username')"
+        class="rule-input-edit"
+        v-model="loginForm.username"
+        autocomplete="off"
+        clearable
+        @focus="focusedInput('username')"
+        @blur="blurInput('username')"
       />
       <label :class="{ move: inputFocused.username || loginForm.username }">
         用户名
@@ -25,14 +25,14 @@
     </el-form-item>
     <el-form-item prop="password" class="ipt-box">
       <el-input
-          class="rule-input-edit"
-          v-model="loginForm.password"
-          type="password"
-          autocomplete="off"
-          show-password
-          clearable
-          @focus="focusedInput('password')"
-          @blur="blurInput('password')"
+        class="rule-input-edit"
+        v-model="loginForm.password"
+        type="password"
+        autocomplete="off"
+        show-password
+        clearable
+        @focus="focusedInput('password')"
+        @blur="blurInput('password')"
       />
       <label :class="{ move: inputFocused.password || loginForm.password }">
         密码
@@ -40,26 +40,26 @@
     </el-form-item>
     <el-form-item>
       <el-button
-          :loading="buttonLoading"
-          class="form-button"
-          @click="submitForm"
+        :loading="buttonLoading"
+        class="form-button"
+        @click="submitForm"
       >
         登录
       </el-button>
     </el-form-item>
     <div class="change-login">
-    <em class="login-type" @click="changeLoginType('phone')">手机号登陆</em>
-    <em class="login-type" @click="downloadTemp">注册</em>
+      <em class="login-type" @click="changeLoginType('phone')">手机号登陆</em>
+      <em class="login-type" @click="downloadTemp">注册</em>
     </div>
   </el-form>
 
   <!--    滑块验证码-->
   <template>
     <verify
-        :imgs="codeImgs"
-        :show="isShow"
-        @success="onSuccess"
-        @close="onClose"
+      :imgs="codeImgs"
+      :show="isShow"
+      @success="onSuccess"
+      @close="onClose"
     />
   </template>
 </template>
@@ -80,23 +80,23 @@ import {
   onRenderTracked,
   onRenderTriggered,
   onActivated,
-  onDeactivated, defineProps
+  onDeactivated,
+  defineProps,
 } from 'vue'
-import {AccountLoginFormData} from "@/api/user/type.ts";
-import {useRoute, useRouter} from "vue-router";
-import codeImg001 from "@/assets/images/code_imgs/codeImg001.webp";
-import codeImg002 from "@/assets/images/code_imgs/codeImg002.webp";
-import codeImg003 from "@/assets/images/code_imgs/codeImg003.webp";
-import codeImg004 from "@/assets/images/code_imgs/codeImg004.webp";
-import {getTimeAdverbial} from "@/utils/time.ts";
+import { AccountLoginFormData } from '@/api/user/type.ts'
+import { useRoute, useRouter } from 'vue-router'
+import codeImg001 from '@/assets/images/code_imgs/codeImg001.webp'
+import codeImg002 from '@/assets/images/code_imgs/codeImg002.webp'
+import codeImg003 from '@/assets/images/code_imgs/codeImg003.webp'
+import codeImg004 from '@/assets/images/code_imgs/codeImg004.webp'
+import { getTimeAdverbial } from '@/utils/time.ts'
 // 引入需要的变量
 import { ElNotification, FormRules } from 'element-plus'
 // 引入仓库
 import userStore from '@/store/modules/user'
 
-import "./login.scss"
-import {GrantType} from "@/api/login/type.ts";
-
+import './login.scss'
+import { GrantType } from '@/api/login/type.ts'
 
 const props = defineProps({
   changeLoginType: { type: Function }, // 点击更换登陆方式
@@ -106,7 +106,6 @@ let loginForm = reactive<AccountLoginFormData>({
   username: '',
   password: '',
 })
-
 
 let buttonLoading = ref(false)
 
@@ -123,7 +122,6 @@ const rules = reactive<FormRules<AccountLoginFormData>>({
   ],
 })
 
-
 const $router = useRouter()
 const $route = useRoute()
 const store = userStore()
@@ -136,7 +134,6 @@ let inputFocused = reactive({
   password: false,
   up: false,
 })
-
 
 const isShow = ref(false)
 
@@ -151,7 +148,7 @@ const onClose = () => {
 
 const onSuccess = async () => {
   try {
-    await store.userLogin(loginForm,GrantType.PASSWORD)
+    await store.userLogin(loginForm, GrantType.PASSWORD)
     onClose() // 验证成功，需要手动关闭模态框
     // 是否重定向
     const redirect: any = $route.query.redirect
@@ -196,31 +193,18 @@ function blurInput(inputType) {
   }
 }
 
-
-onBeforeMount(() => {
-})// 生命周期 - 挂载之前
-onMounted(() => {
-})// 生命周期 - 挂载完成（可以访问 DOM 元素）
-onBeforeUpdate(() => {
-})// 生命周期 - 更新之前
-onUpdated(() => {
-})// 生命周期 - 更新之后
-onBeforeUnmount(() => {
-})// 生命周期 - 销毁之前
-onUnmounted(() => {
-})// 生命周期 - 销毁完成
-onErrorCaptured((err) => {
-})// 当事件处理程序或生命周期钩子抛出错误时
-onRenderTracked((e) => {
-})// 渲染的时候可以追踪到
-onRenderTriggered((e) => {
-})// 重新渲染的时候触发
+onBeforeMount(() => {}) // 生命周期 - 挂载之前
+onMounted(() => {}) // 生命周期 - 挂载完成（可以访问 DOM 元素）
+onBeforeUpdate(() => {}) // 生命周期 - 更新之前
+onUpdated(() => {}) // 生命周期 - 更新之后
+onBeforeUnmount(() => {}) // 生命周期 - 销毁之前
+onUnmounted(() => {}) // 生命周期 - 销毁完成
+onErrorCaptured((err) => {}) // 当事件处理程序或生命周期钩子抛出错误时
+onRenderTracked((e) => {}) // 渲染的时候可以追踪到
+onRenderTriggered((e) => {}) // 重新渲染的时候触发
 // 如果页面有 keep-alive 缓存功能,这个两个函数会触发
-onActivated(() => {
-})// 进入的时候触发
-onDeactivated(() => {
-})// 离开的时候触发
-
+onActivated(() => {}) // 进入的时候触发
+onDeactivated(() => {}) // 离开的时候触发
 </script>
 
 <style scoped lang="scss">
@@ -238,7 +222,6 @@ onDeactivated(() => {
   }
 }
 
-
 .el-form-item {
   margin-bottom: 0;
 }
@@ -247,7 +230,6 @@ onDeactivated(() => {
   color: #fff;
   background-color: #1dc797;
 }
-
 
 /* 手 */
 .hand,
@@ -279,7 +261,6 @@ onDeactivated(() => {
   left: auto;
 }
 
-
 /* 登录框 */
 .login-box {
   width: 400px;
@@ -300,7 +281,6 @@ onDeactivated(() => {
   /* 设置过渡 */
   transition: 0.3s;
 }
-
 
 // input框点击动画
 .move {

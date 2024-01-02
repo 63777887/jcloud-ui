@@ -64,7 +64,7 @@ import { ElMessage } from 'element-plus'
 import store from '@/store'
 import { ClickOutside as vClickOutside } from 'element-plus'
 import { SUCCESS_CODE } from '@/api/base/type'
-import {validateEmail, validatePhone} from "@/utils/validateUtil.ts";
+import { validateEmail, validatePhone } from '@/utils/validateUtil.ts'
 type props = {
   data: User
 }
@@ -92,12 +92,8 @@ let userRules = {
     { required: true, message: '请输入密码', trigger: 'blur' },
     { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
   ],
-  email: [
-    {validator: validateEmail, trigger: 'blur'}
-  ],
-  phone: [
-    {validator: validatePhone, trigger: 'blur'}
-  ],
+  email: [{ validator: validateEmail, trigger: 'blur' }],
+  phone: [{ validator: validatePhone, trigger: 'blur' }],
 }
 
 let userParams = reactive<User>({

@@ -7,8 +7,8 @@
         <div class="eye-shadow left"></div>
         <div class="eye-white left">
           <div
-              class="eye-ball"
-              :style="[
+            class="eye-ball"
+            :style="[
               eyeBallY && { top: eyeBallY },
               eyeBallX && { left: eyeBallX },
             ]"
@@ -17,8 +17,8 @@
         <div class="eye-shadow right"></div>
         <div class="eye-white right">
           <div
-              class="eye-ball"
-              :style="[
+            class="eye-ball"
+            :style="[
               eyeBallY && { top: eyeBallY },
               eyeBallX && { left: eyeBallX },
             ]"
@@ -36,36 +36,38 @@
       </div>
     </div>
     <div>
-      <PasswordLogin v-if="loginType == 'account'" :changeLoginType="changeLoginType"/>
-      <PhoneLogin v-if="loginType == 'phone'" :changeLoginType="changeLoginType"/>
+      <PasswordLogin
+        v-if="loginType == 'account'"
+        :changeLoginType="changeLoginType"
+      />
+      <PhoneLogin
+        v-if="loginType == 'phone'"
+        :changeLoginType="changeLoginType"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-
-import PasswordLogin from "@/views/login/components/PasswordLogin.vue";
-import PhoneLogin from "@/views/login/components/PhoneLogin.vue";
-import MonitorEyeBallFocus from "@/utils/montor.ts";
-import {ref} from "vue";
-
+import PasswordLogin from '@/views/login/components/PasswordLogin.vue'
+import PhoneLogin from '@/views/login/components/PhoneLogin.vue'
+import MonitorEyeBallFocus from '@/utils/montor.ts'
+import { ref } from 'vue'
 
 // 鼠标移动事件
-const {eyeBallY, eyeBallX} = MonitorEyeBallFocus()
+const { eyeBallY, eyeBallX } = MonitorEyeBallFocus()
 
 let loginType = ref('account')
 
 const changeLoginType = (type) => {
   console.log(type)
-  if (type){
+  if (type) {
     loginType.value = type
   }
 }
-
 </script>
 
 <style scoped lang="scss">
-
 /* 开始画熊猫 */
 .panda {
   /* 相对定位 */
@@ -259,6 +261,4 @@ const changeLoginType = (type) => {
   content: '';
   left: 25px;
 }
-
-
 </style>

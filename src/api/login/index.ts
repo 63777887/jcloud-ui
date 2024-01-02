@@ -6,8 +6,12 @@ import type {
 } from './type'
 import authRequest from '@/utils/authRequest'
 import adminRequest from '@/utils/adminRequest'
-import {CaptchaFormData, GetCaptchaResponseData, UserInfoResponseData} from './type'
-import {ResponseData} from "@/api/base/type.ts";
+import {
+  CaptchaFormData,
+  GetCaptchaResponseData,
+  UserInfoResponseData,
+} from './type'
+import { ResponseData } from '@/api/base/type.ts'
 
 //项目用户相关的请求地址
 enum API {
@@ -70,8 +74,8 @@ export const reqUserInfo = () =>
 //退出登录
 export const reqLogout = () => authRequest.delete<any, any>(API.LOGOUT_URL)
 //发送短信
-export const reqSendCode = (phone:String):GetCaptchaResponseData => {
-  let date = new FormData();
+export const reqSendCode = (phone: String): GetCaptchaResponseData => {
+  let date = new FormData()
   date.append('phone', phone)
-  return authRequest.post<any, any>(API.SEND_CODE_URL,date)
+  return authRequest.post<any, any>(API.SEND_CODE_URL, date)
 }

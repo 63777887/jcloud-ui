@@ -1,59 +1,61 @@
 <template>
   <el-drawer
-      v-model="props.userDrawer"
-      :before-close="settingCancel"
-      size="380"
-      title="个人设置"
+    v-model="props.userDrawer"
+    :before-close="settingCancel"
+    size="380"
+    title="个人设置"
   >
     <el-tabs v-model="activeName" class="demo-tabs">
       <el-tab-pane label="基本信息" name="base">
         <el-form
-            :model="userParams"
-            :rules="userRules"
-            ref="userFormRef"
-            label-width="100px"
+          :model="userParams"
+          :rules="userRules"
+          ref="userFormRef"
+          label-width="100px"
         >
-          <el-form-item >
+          <el-form-item>
             <el-tooltip
-                effect="light"
-                content="点击更换头像"
-                placement="right-start"
+              effect="light"
+              content="点击更换头像"
+              placement="right-start"
             >
               <el-upload
-                  :show-file-list="false"
-                  drag
-                  :http-request="changeAvatar"
-                  accept="image/*"
-                  class="upload-avatar"
+                :show-file-list="false"
+                drag
+                :http-request="changeAvatar"
+                accept="image/*"
+                class="upload-avatar"
               >
-                <el-avatar :size="100" :src="store.user.icon ? store.user.icon : defaultAvatar"/>
+                <el-avatar
+                  :size="100"
+                  :src="store.user.icon ? store.user.icon : defaultAvatar"
+                />
               </el-upload>
             </el-tooltip>
-
           </el-form-item>
           <el-form-item label="用户名" prop="username">
             <el-input
-                v-model="userParams.username"
-                placeholder="请输入用户名"
-                disabled
+              v-model="userParams.username"
+              placeholder="请输入用户名"
+              disabled
             ></el-input>
           </el-form-item>
           <el-form-item label="用户昵称" prop="nickname">
             <el-input
-                v-model="userParams.nickname"
-                placeholder="请输入用户昵称"
+              v-model="userParams.nickname"
+              placeholder="请输入用户昵称"
             ></el-input>
           </el-form-item>
           <el-form-item label="手机号" prop="phone">
             <el-input
-                v-model="userParams.phone"
-                placeholder="请输入手机号"
+              v-model="userParams.phone"
+              placeholder="请输入手机号"
             ></el-input>
           </el-form-item>
           <el-form-item label="邮箱" prop="email">
             <el-input
-                v-model="userParams.email"
-                placeholder="请输入邮箱"
+              v-model="userParams.email"
+              placeholder="请输入邮箱"
             ></el-input>
           </el-form-item>
         </el-form>
@@ -61,27 +63,27 @@
       </el-tab-pane>
       <el-tab-pane label="安全信息" name="security">
         <el-form
-            :model="passwordParams"
-            :rules="passwordRules"
-            ref="userFormRef"
-            label-width="100px"
+          :model="passwordParams"
+          :rules="passwordRules"
+          ref="userFormRef"
+          label-width="100px"
         >
           <el-form-item label="原密码" prop="oldPassword">
             <el-input
-                v-model="passwordParams.oldPassword"
-                placeholder="请输入原密码"
+              v-model="passwordParams.oldPassword"
+              placeholder="请输入原密码"
             ></el-input>
           </el-form-item>
           <el-form-item label="新密码" prop="newPassword">
             <el-input
-                v-model="passwordParams.newPassword"
-                placeholder="请输入新密码"
+              v-model="passwordParams.newPassword"
+              placeholder="请输入新密码"
             ></el-input>
           </el-form-item>
           <el-form-item label="确认密码" prop="confirmPassword">
             <el-input
-                v-model="passwordParams.confirmPassword"
-                placeholder="请再次输入新密码"
+              v-model="passwordParams.confirmPassword"
+              placeholder="请再次输入新密码"
             ></el-input>
           </el-form-item>
         </el-form>
@@ -111,18 +113,22 @@ import {
   reactive,
   ref,
 } from 'vue'
-import {UpdatePasswordReq, UserReq} from '@/api/acl/user/type.ts'
-import {reqAddOrUpdateUser, reqImportUser, reqUpdatePassword} from '@/api/acl/user'
-import {ResponseData, SUCCESS_CODE} from '@/api/base/type.ts'
-import {ElMessage, UploadRequestOptions} from 'element-plus'
+import { UpdatePasswordReq, UserReq } from '@/api/acl/user/type.ts'
+import {
+  reqAddOrUpdateUser,
+  reqImportUser,
+  reqUpdatePassword,
+} from '@/api/acl/user'
+import { ResponseData, SUCCESS_CODE } from '@/api/base/type.ts'
+import { ElMessage, UploadRequestOptions } from 'element-plus'
 import userStore from '@/store/modules/user.ts'
-import {useRoute, useRouter} from 'vue-router'
-import {validateEmail, validatePhone} from "@/utils/validateUtil.ts";
-import defaultAvatar from "@/assets/images/defaultAvatar.gif";
-import {reqOssUpload} from "@/api/acl/oss";
-import {OssUploadResponseData} from "@/api/acl/oss/type.ts";
+import { useRoute, useRouter } from 'vue-router'
+import { validateEmail, validatePhone } from '@/utils/validateUtil.ts'
+import defaultAvatar from '@/assets/images/defaultAvatar.gif'
+import { reqOssUpload } from '@/api/acl/oss'
+import { OssUploadResponseData } from '@/api/acl/oss/type.ts'
 
-import './css/index.scss';
+import './css/index.scss'
 
 let store = userStore()
 let $router = useRouter()
@@ -131,7 +137,7 @@ let userFormRef = ref()
 let avatarList = ref([])
 
 const props = defineProps({
-  userDrawer: {type: Boolean, default: false}, // 是否显示抽屉
+  userDrawer: { type: Boolean, default: false }, // 是否显示抽屉
 })
 
 let activeName = ref('base')
@@ -156,19 +162,15 @@ let passwordParams = reactive<UpdatePasswordReq>({
 
 let userRules = {
   nickname: [
-    {required: true, message: '请输入用户昵称', trigger: 'blur'},
-    {min: 2, max: 12, message: '长度在 2 到 12', trigger: 'blur'},
+    { required: true, message: '请输入用户昵称', trigger: 'blur' },
+    { min: 2, max: 12, message: '长度在 2 到 12', trigger: 'blur' },
   ],
   password: [
-    {required: true, message: '请输入密码', trigger: 'blur'},
-    {min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur'},
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
   ],
-  email: [
-    {validator: validateEmail, trigger: 'blur'}
-  ],
-  phone: [
-    {validator: validatePhone, trigger: 'blur'}
-  ],
+  email: [{ validator: validateEmail, trigger: 'blur' }],
+  phone: [{ validator: validatePhone, trigger: 'blur' }],
 }
 
 const checkConfirmPassword = (rule: any, value: any, callback: any) => {
@@ -183,14 +185,14 @@ const checkConfirmPassword = (rule: any, value: any, callback: any) => {
 
 let passwordRules = {
   oldPassword: [
-    {required: true, message: '请输入密码', trigger: 'blur'},
-    {min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur'},
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
   ],
   newPassword: [
-    {required: true, message: '请输入密码', trigger: 'blur'},
-    {min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur'},
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 3, max: 12, message: '长度在 3 到 12', trigger: 'blur' },
   ],
-  confirmPassword: [{validator: checkConfirmPassword, trigger: 'blur'}],
+  confirmPassword: [{ validator: checkConfirmPassword, trigger: 'blur' }],
 }
 
 const updatePassword = async () => {
@@ -198,7 +200,7 @@ const updatePassword = async () => {
   if (response.code == SUCCESS_CODE) {
     ElMessage.success('密码修改成功，请重新登陆')
     await store.userLogout()
-    $router.push({path: '/login', query: {redirect: $route.path}})
+    $router.push({ path: '/login', query: { redirect: $route.path } })
   } else {
     ElMessage.error(response.msg)
   }
@@ -206,9 +208,9 @@ const updatePassword = async () => {
 
 const changeAvatar = async (options: UploadRequestOptions) => {
   console.log(options.file)
-  let ossUpload: OssUploadResponseData = await reqOssUpload(options.file);
+  let ossUpload: OssUploadResponseData = await reqOssUpload(options.file)
   if (ossUpload.code != SUCCESS_CODE) {
-    ElMessage.error("头像更换失败")
+    ElMessage.error('头像更换失败')
   }
   // 更新头像地址
   let updateUser = {} as UserReq
@@ -222,7 +224,6 @@ const changeAvatar = async (options: UploadRequestOptions) => {
     ElMessage.error(result.msg)
   }
 }
-
 
 let emits = defineEmits(['close'])
 
@@ -261,30 +262,20 @@ const clearUserParams = () => {
   })
 }
 
-onBeforeMount(() => {
-}) // 生命周期 - 挂载之前
+onBeforeMount(() => {}) // 生命周期 - 挂载之前
 onMounted(async () => {
   Object.assign(userParams, store.user)
 }) // 生命周期 - 挂载完成（可以访问 DOM 元素）
-onBeforeUpdate(() => {
-}) // 生命周期 - 更新之前
-onUpdated(() => {
-}) // 生命周期 - 更新之后
-onBeforeUnmount(() => {
-}) // 生命周期 - 销毁之前
-onUnmounted(() => {
-}) // 生命周期 - 销毁完成
-onErrorCaptured((err) => {
-}) // 当事件处理程序或生命周期钩子抛出错误时
-onRenderTracked((e) => {
-}) // 渲染的时候可以追踪到
-onRenderTriggered((e) => {
-}) // 重新渲染的时候触发
+onBeforeUpdate(() => {}) // 生命周期 - 更新之前
+onUpdated(() => {}) // 生命周期 - 更新之后
+onBeforeUnmount(() => {}) // 生命周期 - 销毁之前
+onUnmounted(() => {}) // 生命周期 - 销毁完成
+onErrorCaptured((err) => {}) // 当事件处理程序或生命周期钩子抛出错误时
+onRenderTracked((e) => {}) // 渲染的时候可以追踪到
+onRenderTriggered((e) => {}) // 重新渲染的时候触发
 // 如果页面有 keep-alive 缓存功能,这个两个函数会触发
-onActivated(() => {
-}) // 进入的时候触发
-onDeactivated(() => {
-}) // 离开的时候触发
+onActivated(() => {}) // 进入的时候触发
+onDeactivated(() => {}) // 离开的时候触发
 </script>
 
 <style scoped lang="scss">

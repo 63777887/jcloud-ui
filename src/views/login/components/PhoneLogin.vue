@@ -1,23 +1,23 @@
 <template>
   <el-form
-      ref="loginFormRef"
-      :model="loginForm"
-      :rules="rules"
-      class="login-box"
-      :class="{ up: inputFocused.up }"
-      @keydown.enter="submitForm"
+    ref="loginFormRef"
+    :model="loginForm"
+    :rules="rules"
+    class="login-box"
+    :class="{ up: inputFocused.up }"
+    @keydown.enter="submitForm"
   >
     <div class="hand left"></div>
     <div class="hand right"></div>
     <h1>手机号登录</h1>
     <el-form-item prop="phone" class="ipt-box">
       <el-input
-          class="rule-input-edit"
-          v-model="loginForm.phone"
-          autocomplete="off"
-          clearable
-          @focus="focusedInput('phone')"
-          @blur="blurInput('phone')"
+        class="rule-input-edit"
+        v-model="loginForm.phone"
+        autocomplete="off"
+        clearable
+        @focus="focusedInput('phone')"
+        @blur="blurInput('phone')"
       />
       <label :class="{ move: inputFocused.phone || loginForm.phone }">
         手机号
@@ -25,10 +25,10 @@
     </el-form-item>
     <el-form-item prop="code" class="ipt-box">
       <el-input
-          class="rule-input-edit"
-          v-model="loginForm.code"
-          @focus="focusedInput('code')"
-          @blur="blurInput('code')"
+        class="rule-input-edit"
+        v-model="loginForm.code"
+        @focus="focusedInput('code')"
+        @blur="blurInput('code')"
       >
         <template #suffix>
           <el-button v-if="codeShow" plain @click="getCode" class="code-button">
@@ -45,9 +45,9 @@
     </el-form-item>
     <el-form-item>
       <el-button
-          :loading="buttonLoading"
-          class="form-button"
-          @click="submitForm"
+        :loading="buttonLoading"
+        class="form-button"
+        @click="submitForm"
       >
         登录
       </el-button>
@@ -61,10 +61,10 @@
   <!--    滑块验证码-->
   <template>
     <verify
-        :imgs="codeImgs"
-        :show="isShow"
-        @success="onSuccess"
-        @close="onClose"
+      :imgs="codeImgs"
+      :show="isShow"
+      @success="onSuccess"
+      @close="onClose"
     />
   </template>
 </template>
@@ -86,28 +86,31 @@ import {
   onUnmounted,
   onUpdated,
   reactive,
-  ref
+  ref,
 } from 'vue'
-import {GetCaptchaResponseData, GrantType, PhoneLoginFormData} from "@/api/login/type.ts";
-import {useRoute, useRouter} from "vue-router";
-import codeImg001 from "@/assets/images/code_imgs/codeImg001.webp";
-import codeImg002 from "@/assets/images/code_imgs/codeImg002.webp";
-import codeImg003 from "@/assets/images/code_imgs/codeImg003.webp";
-import codeImg004 from "@/assets/images/code_imgs/codeImg004.webp";
-import {getTimeAdverbial} from "@/utils/time.ts";
+import {
+  GetCaptchaResponseData,
+  GrantType,
+  PhoneLoginFormData,
+} from '@/api/login/type.ts'
+import { useRoute, useRouter } from 'vue-router'
+import codeImg001 from '@/assets/images/code_imgs/codeImg001.webp'
+import codeImg002 from '@/assets/images/code_imgs/codeImg002.webp'
+import codeImg003 from '@/assets/images/code_imgs/codeImg003.webp'
+import codeImg004 from '@/assets/images/code_imgs/codeImg004.webp'
+import { getTimeAdverbial } from '@/utils/time.ts'
 // 引入需要的变量
-import {ElMessage, ElNotification, FormRules} from 'element-plus'
+import { ElMessage, ElNotification, FormRules } from 'element-plus'
 // 引入仓库
 import userStore from '@/store/modules/user'
 
-import "./login.scss"
-import {validatePhone} from "@/utils/validateUtil.ts";
-import {reqSendCode} from "@/api/login";
-import {ResponseData, SUCCESS_CODE} from "@/api/base/type.ts";
-
+import './login.scss'
+import { validatePhone } from '@/utils/validateUtil.ts'
+import { reqSendCode } from '@/api/login'
+import { ResponseData, SUCCESS_CODE } from '@/api/base/type.ts'
 
 const props = defineProps({
-  changeLoginType: {type: Function}, // 点击更换登陆方式
+  changeLoginType: { type: Function }, // 点击更换登陆方式
 })
 
 const count = ref(60)
@@ -119,19 +122,15 @@ const loginForm: PhoneLoginFormData = reactive<PhoneLoginFormData>({
   code: '',
 })
 
-
 let buttonLoading = ref(false)
 
 let loginFormRef = ref()
 
-
 const rules = reactive<FormRules<PhoneLoginFormData>>({
-  phone: [
-    {validator: validatePhone, trigger: 'blur'}
-  ],
+  phone: [{ validator: validatePhone, trigger: 'blur' }],
   code: [
-    {required: true, message: '请输入验证码', trigger: 'blur'},
-    {min: 6, max: 6, message: '验证码长度不匹配', trigger: 'blur'},
+    { required: true, message: '请输入验证码', trigger: 'blur' },
+    { min: 6, max: 6, message: '验证码长度不匹配', trigger: 'blur' },
   ],
 })
 
@@ -148,7 +147,6 @@ let inputFocused = reactive({
   up: false,
 })
 
-
 const isShow = ref(false)
 
 const onShow = () => {
@@ -161,30 +159,32 @@ const onClose = () => {
 
 const onSuccess = async () => {
   try {
-    const TIME_COUNT = 60;
+    const TIME_COUNT = 60
     if (!timer) {
-      count.value = TIME_COUNT;
-      codeShow.value = false;
+      count.value = TIME_COUNT
+      codeShow.value = false
       timer = setInterval(() => {
         if (count.value > 0 && count.value <= TIME_COUNT) {
-          count.value--;
+          count.value--
         } else {
-          codeShow.value = true;
-          clearInterval(timer);
-          timer = null;
+          codeShow.value = true
+          clearInterval(timer)
+          timer = null
         }
       }, 1000)
     }
     await loginFormRef.value.validateField(['phone'])
-    let responseData: GetCaptchaResponseData = await reqSendCode(loginForm.phone);
+    let responseData: GetCaptchaResponseData = await reqSendCode(
+      loginForm.phone,
+    )
     if (responseData && responseData.code != SUCCESS_CODE) {
       ElMessage.error(responseData.msg)
     }
     console.log(responseData)
-    if (responseData.data != "true") {
+    if (responseData.data != 'true') {
       loginForm.code = responseData.data
     }
-  }catch (error){
+  } catch (error) {
     ElMessage.error(error.toString())
   } finally {
     onClose() // 验证成功，需要手动关闭模态框
@@ -196,16 +196,15 @@ const submitForm = async () => {
   try {
     buttonLoading.value = true
     await loginFormRef.value.validate()
-    await store.userLogin(loginForm,GrantType.SMS);
+    await store.userLogin(loginForm, GrantType.SMS)
     // 是否重定向
     const redirect: any = $route.query.redirect
-    await $router.push({path: redirect || '/'})
+    await $router.push({ path: redirect || '/' })
     // 登陆成功，提示信息
     ElNotification.success({
       message: '欢迎回来',
       title: `HI,${getTimeAdverbial()}好`,
     })
-
   } catch (error) {
     ElNotification.error(error.toString())
   } finally {
@@ -238,31 +237,18 @@ const getCode = async () => {
   onShow()
 }
 
-
-onBeforeMount(() => {
-})// 生命周期 - 挂载之前
-onMounted(() => {
-})// 生命周期 - 挂载完成（可以访问 DOM 元素）
-onBeforeUpdate(() => {
-})// 生命周期 - 更新之前
-onUpdated(() => {
-})// 生命周期 - 更新之后
-onBeforeUnmount(() => {
-})// 生命周期 - 销毁之前
-onUnmounted(() => {
-})// 生命周期 - 销毁完成
-onErrorCaptured((err) => {
-})// 当事件处理程序或生命周期钩子抛出错误时
-onRenderTracked((e) => {
-})// 渲染的时候可以追踪到
-onRenderTriggered((e) => {
-})// 重新渲染的时候触发
+onBeforeMount(() => {}) // 生命周期 - 挂载之前
+onMounted(() => {}) // 生命周期 - 挂载完成（可以访问 DOM 元素）
+onBeforeUpdate(() => {}) // 生命周期 - 更新之前
+onUpdated(() => {}) // 生命周期 - 更新之后
+onBeforeUnmount(() => {}) // 生命周期 - 销毁之前
+onUnmounted(() => {}) // 生命周期 - 销毁完成
+onErrorCaptured((err) => {}) // 当事件处理程序或生命周期钩子抛出错误时
+onRenderTracked((e) => {}) // 渲染的时候可以追踪到
+onRenderTriggered((e) => {}) // 重新渲染的时候触发
 // 如果页面有 keep-alive 缓存功能,这个两个函数会触发
-onActivated(() => {
-})// 进入的时候触发
-onDeactivated(() => {
-})// 离开的时候触发
-
+onActivated(() => {}) // 进入的时候触发
+onDeactivated(() => {}) // 离开的时候触发
 </script>
 
 <style scoped lang="scss">
@@ -281,7 +267,6 @@ onDeactivated(() => {
   }
 }
 
-
 .el-form-item {
   margin-bottom: 0;
 }
@@ -298,7 +283,6 @@ onDeactivated(() => {
   text-indent: 10px;
   cursor: pointer;
   transition: 0.3s;
-
 }
 
 .form-button:hover {
@@ -337,7 +321,6 @@ onDeactivated(() => {
   left: auto;
 }
 
-
 /* 登录框 */
 .login-box {
   width: 400px;
@@ -358,7 +341,6 @@ onDeactivated(() => {
   /* 设置过渡 */
   transition: 0.3s;
 }
-
 
 // input框点击动画
 .move {
@@ -434,6 +416,4 @@ h1 {
   text-indent: 1px;
   color: #2fa080;
 }
-
-
 </style>

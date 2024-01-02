@@ -55,7 +55,7 @@ request.interceptors.response.use(
         message = '网络出现问题'
         break
     }
-    console.log("---------",message)
+    console.log('---------', message)
     //提示错误信息
     return Promise.reject(message)
   },

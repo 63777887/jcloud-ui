@@ -1,7 +1,12 @@
 // 创建用户相关的仓库
 import { defineStore } from 'pinia'
 // 引入接口
-import {reqPasswordLogin, reqLogout, reqUserInfo, reqCaptchaLogin} from '@/api/login'
+import {
+  reqPasswordLogin,
+  reqLogout,
+  reqUserInfo,
+  reqCaptchaLogin,
+} from '@/api/login'
 import {
   AccountLoginFormData,
   LoginResponseData,
@@ -38,11 +43,11 @@ let userStore = defineStore('User', {
   },
   // 处理逻辑/异步
   actions: {
-    async userLogin(data: any,grantType: String) {
-      let responseData: LoginResponseData;
-      if (grantType=="sms"){
+    async userLogin(data: any, grantType: String) {
+      let responseData: LoginResponseData
+      if (grantType == 'sms') {
         responseData = await reqCaptchaLogin(data)
-      }else {
+      } else {
         responseData = await reqPasswordLogin(data)
       }
       if (responseData.code == SUCCESS_CODE) {
